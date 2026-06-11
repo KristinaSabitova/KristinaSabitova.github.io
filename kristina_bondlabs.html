@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOND LABS × Kristina Sabitova</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --orange:#FF622E;
+  --orange-dark:#e04a1a;
+  --black:#050506;
+  --dark:#070708;
+  --white:#FAFAFA;
+  --cream:#F5F0EB;
+  --muted:rgba(250,250,250,0.45);
+  --border:rgba(250,250,250,0.08);
+  --grid:rgba(250,250,250,0.04);
+  --max:1400px;
+}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
+
+/* ── DOT GRID BACKGROUND ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(250,250,250,0.12) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(5,5,6,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  height:60px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;
+}
+.topbar-logo img{height:22px;display:block}
+.topbar-nav{display:flex;gap:2rem;list-style:none}
+.topbar-nav a{
+  font-size:0.82rem;font-weight:500;color:var(--muted);
+  text-decoration:none;transition:color .2s;
+}
+.topbar-nav a:hover{color:var(--white)}
+.btn-orange{
+  display:inline-block;background:var(--orange);color:var(--white);
+  font-size:0.78rem;font-weight:700;padding:0.6rem 1.4rem;
+  border-radius:4px;text-decoration:none;transition:background .2s;
+  font-family:'Inter',sans-serif;letter-spacing:0.02em;
+  border:none;cursor:pointer;
+}
+.btn-orange:hover{background:var(--orange-dark)}
+.topbar-lang{font-size:0.78rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:0.3rem}
+
+/* TALENT PILL */
+.talent-pill{
+  position:fixed;top:68px;right:2rem;z-index:99;
+  background:var(--orange);border-radius:4px;
+  padding:0.5rem 1rem;display:flex;align-items:center;gap:0.5rem;
+  font-size:0.7rem;color:white;font-weight:700;
+}
+.tdot{width:6px;height:6px;border-radius:50%;background:white;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* ── SECTION LABELS ── */
+.section-label{
+  font-size:0.65rem;font-weight:600;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 3rem;border-bottom:1px solid var(--border);
+  position:relative;z-index:1;
+}
+.section-label::after{content:attr(data-num);margin-left:auto;font-variant-numeric:tabular-nums}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  min-height:100vh;padding:0 3rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;
+  align-items:center;padding-top:60px;
+}
+.hero-left{}
+.hero-title{
+  font-size:clamp(3rem,6vw,6rem);font-weight:900;
+  line-height:0.95;letter-spacing:-0.03em;
+  margin-bottom:1.5rem;
+}
+.hero-title .line-white{color:var(--white)}
+.hero-title .line-orange{color:var(--orange);display:block}
+.hero-sub{
+  font-size:1rem;color:var(--muted);line-height:1.7;
+  max-width:480px;margin-bottom:2.5rem;font-weight:400;
+}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-outline-white{
+  display:inline-block;border:1.5px solid rgba(250,250,250,0.3);
+  color:var(--white);font-size:0.78rem;font-weight:700;
+  padding:0.6rem 1.4rem;border-radius:4px;text-decoration:none;
+  transition:border-color .2s,background .2s;font-family:'Inter',sans-serif;
+}
+.btn-outline-white:hover{border-color:var(--white);background:rgba(250,250,250,0.05)}
+.hero-scroll{
+  position:absolute;bottom:2rem;right:3rem;
+  font-size:0.62rem;font-weight:600;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.hero-scroll::after{content:'';width:40px;height:1px;background:var(--muted)}
+
+/* Terminal */
+.terminal{
+  background:#0d0d0e;
+  border-radius:8px;border:1px solid rgba(250,250,250,0.1);
+  overflow:hidden;font-family:'SF Mono','Fira Code',monospace;
+}
+.terminal-bar{
+  background:#1a1a1b;padding:0.6rem 1rem;
+  display:flex;align-items:center;gap:0.5rem;
+  border-bottom:1px solid rgba(250,250,250,0.06);
+}
+.terminal-dot{width:10px;height:10px;border-radius:50%}
+.terminal-title{font-size:0.72rem;color:var(--muted);margin-left:0.5rem;letter-spacing:0.04em}
+.terminal-body{padding:1.5rem;font-size:0.82rem;line-height:1.8;min-height:260px}
+.t-prompt{color:#4D9375}
+.t-cmd{color:var(--white)}
+.t-orange{color:var(--orange)}
+.t-grey{color:var(--muted)}
+.t-green{color:#40C96E}
+.t-cursor{
+  display:inline-block;width:8px;height:14px;
+  background:var(--orange);vertical-align:middle;
+  animation:blink .8s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── QUIÉNES SOMOS ── */
+.quienes{
+  position:relative;z-index:1;
+  background:var(--cream);
+  padding:8rem 3rem;
+}
+.quienes-title{
+  font-size:clamp(2rem,4vw,3.8rem);font-weight:900;
+  color:var(--black);letter-spacing:-0.03em;line-height:1.0;
+  max-width:900px;margin-bottom:2rem;
+}
+.quienes-body{
+  display:grid;grid-template-columns:1fr 3fr;gap:4rem;align-items:start;
+  margin-bottom:4rem;
+}
+.quienes-label{font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#888;padding-top:0.5rem}
+.quienes-text{
+  border-left:3px solid var(--orange);
+  padding-left:1.5rem;
+}
+.quienes-text p{font-size:1rem;color:#333;line-height:1.75;margin-bottom:1rem}
+.quienes-pills{
+  display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;
+}
+.quienes-pill{
+  display:flex;align-items:center;gap:0.8rem;
+  background:white;border-radius:4px;
+  padding:0.8rem 1.2rem;font-size:0.82rem;color:#333;font-weight:500;
+  border:1px solid #e8e8e8;
+}
+.quienes-pill-icon{
+  width:32px;height:32px;background:var(--black);border-radius:4px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.quienes-pill-icon svg{width:16px;height:16px;stroke:var(--orange);fill:none;stroke-width:1.5}
+
+/* ── SERVICIOS ── */
+.servicios{position:relative;z-index:1;background:var(--black)}
+.servicios-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:1px solid var(--border);
+}
+.servicio-item{
+  padding:3rem;border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:background .2s;cursor:default;
+}
+.servicio-item:hover{background:rgba(250,250,250,0.02)}
+.servicio-num{
+  font-size:4rem;font-weight:900;color:rgba(250,250,250,0.05);
+  position:absolute;top:1.5rem;right:2rem;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.servicio-title{
+  font-size:1.1rem;font-weight:800;color:var(--white);
+  text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.8rem;
+}
+.servicio-desc{font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem}
+.servicio-tags{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.servicio-tag{
+  border:1px solid rgba(250,250,250,0.15);border-radius:2px;
+  padding:0.2rem 0.6rem;font-size:0.65rem;color:var(--muted);
+  font-weight:500;letter-spacing:0.04em;
+}
+.servicio-link{
+  font-size:0.72rem;font-weight:700;color:var(--orange);
+  text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;
+  display:flex;align-items:center;gap:0.3rem;
+}
+
+/* ── CASOS DE ÉXITO ── */
+.casos{position:relative;z-index:1;background:var(--cream)}
+.casos-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:#ddd;margin-top:3rem;
+}
+.caso-card{
+  background:var(--cream);overflow:hidden;
+  position:relative;text-decoration:none;color:inherit;
+  transition:background .2s;
+}
+.caso-card:hover{background:#ede8e3}
+.caso-img{aspect-ratio:16/9;overflow:hidden}
+.caso-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:grayscale(20%)}
+.caso-card:hover .caso-img img{transform:scale(1.04)}
+.caso-body{padding:1.8rem}
+.caso-title{
+  font-size:0.9rem;font-weight:800;color:var(--black);
+  text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;
+}
+.caso-desc{font-size:0.82rem;color:#666;line-height:1.6}
+.caso-link{
+  font-size:0.72rem;font-weight:700;color:var(--orange);
+  text-transform:uppercase;letter-spacing:0.06em;
+  margin-top:0.8rem;display:flex;align-items:center;gap:0.3rem;
+  text-decoration:none;
+}
+
+/* ── KRISTINA ── */
+.k-section{
+  position:relative;z-index:1;
+  background:var(--black);
+  padding:6rem 3rem;
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;
+}
+.k-eyebrow{font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.6rem}
+.k-eyebrow::before{content:'';width:20px;height:1px;background:var(--orange)}
+.k-section h2{
+  font-size:clamp(2rem,3.5vw,3.2rem);font-weight:900;
+  color:var(--white);letter-spacing:-0.03em;margin-bottom:1.2rem;line-height:1.0;
+}
+.k-section h2 span{color:var(--orange)}
+.k-section p{font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:0.8rem}
+.k-section strong{color:var(--white)}
+
+.k-card{
+  background:#0d0d0e;
+  border:1px solid var(--border);
+  border-radius:6px;padding:2.4rem;
+  position:relative;overflow:hidden;
+}
+.k-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange)}
+.k-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  border:1px solid rgba(255,98,46,0.3);border-radius:3px;
+  padding:0.3rem 0.8rem;margin-bottom:1.4rem;
+  font-size:0.62rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--orange);
+}
+.k-name{font-size:1.5rem;font-weight:900;color:var(--white);margin-bottom:0.2rem;letter-spacing:-0.02em}
+.k-role{font-size:0.72rem;color:var(--muted);margin-bottom:1.2rem;letter-spacing:0.04em}
+.k-bio{font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem}
+.k-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.k-pill{border:1px solid var(--border);border-radius:3px;padding:0.2rem 0.6rem;font-size:0.62rem;color:var(--muted);font-weight:500;letter-spacing:0.04em}
+.k-links{display:flex;flex-direction:column;gap:0.4rem}
+.k-link{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,98,46,0.06);border:1px solid rgba(255,98,46,0.15);
+  border-radius:4px;padding:0.75rem 1rem;text-decoration:none;
+  transition:border-color .2s,background .2s;
+}
+.k-link:hover{border-color:var(--orange);background:rgba(255,98,46,0.1)}
+.k-link-name{font-size:0.78rem;font-weight:700;color:var(--white);letter-spacing:0.02em}
+.k-link-url{font-size:0.62rem;color:var(--orange);opacity:0.7}
+
+/* ── PARTNERS ── */
+.partners{
+  position:relative;z-index:1;
+  background:var(--cream);padding:4rem 3rem;
+  border-top:1px solid #e0e0e0;
+}
+.partners-title{font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:2rem}
+.partners-grid{
+  display:flex;gap:2rem;align-items:center;flex-wrap:wrap;
+}
+.partner-logo{
+  height:24px;opacity:0.45;transition:opacity .2s;filter:grayscale(100%);
+}
+.partner-logo:hover{opacity:0.7;filter:none}
+
+/* ── ASK AI SECTION ── */
+.ask-ai{
+  position:relative;z-index:1;
+  background:var(--black);padding:4rem 3rem;
+  border-top:1px solid var(--border);
+}
+.ask-label{font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.8rem}
+.ask-title{font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:1.5rem;letter-spacing:-0.01em}
+.ask-btns{display:flex;gap:0.8rem;flex-wrap:wrap}
+.ask-btn{
+  display:flex;align-items:center;gap:0.5rem;
+  border:1px solid var(--border);border-radius:4px;
+  padding:0.6rem 1rem;font-size:0.75rem;font-weight:600;
+  color:var(--muted);text-decoration:none;transition:border-color .2s,color .2s;
+  cursor:default;
+}
+.ask-btn:hover{border-color:var(--orange);color:var(--white)}
+.ask-btn svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+
+/* ── CTA ── */
+.cta-section{
+  position:relative;z-index:1;
+  background:var(--black);padding:6rem 3rem;
+  border-top:1px solid var(--border);
+  text-align:left;
+}
+.cta-label{font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.cta-sep{font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;margin-bottom:0.5rem}
+.cta-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:var(--white);letter-spacing:-0.03em;margin-bottom:1rem;line-height:1.0}
+.cta-sub{font-size:0.9rem;color:var(--muted);max-width:500px;line-height:1.7;margin-bottom:2.5rem}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  background:var(--black);
+  border-top:1px solid var(--border);
+  padding:3rem 3rem 2rem;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:2rem;margin-bottom:3rem;
+}
+.footer-logo{margin-bottom:1rem}
+.footer-logo img{height:18px;opacity:0.8}
+.footer-address{font-size:0.78rem;color:var(--muted);line-height:1.6;margin-top:0.5rem}
+.footer-col h4{font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,250,250,0.25);margin-bottom:1rem}
+.footer-col a{display:block;font-size:0.78rem;color:rgba(250,250,250,0.45);text-decoration:none;margin-bottom:0.5rem;transition:color .2s}
+.footer-col a:hover{color:var(--orange)}
+.footer-bottom{
+  border-top:1px solid var(--border);padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.7rem;color:rgba(250,250,250,0.2);
+}
+
+@media(max-width:900px){
+  .hero,.k-section{grid-template-columns:1fr}
+  .servicios-grid,.casos-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .quienes-body{grid-template-columns:1fr}
+  .talent-pill{display:none}
+  .topbar-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TALENT PILL -->
+<div class="talent-pill">
+  <div class="tdot"></div>
+  Evolve Talent Day · <strong>25 jun 2026</strong>
+</div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <img src="https://bondlabs.es/assets/bond-labs-logo-white-BFR3ixlT.png" alt="BOND LABS" style="height:20px">
+  <ul class="topbar-nav">
+    <li><a href="https://bondlabs.es/servicios/" target="_blank">Servicios</a></li>
+    <li><a href="https://bondlabs.es/casos-de-exito/" target="_blank">Casos de éxito</a></li>
+    <li><a href="https://bondlabs.es/sobre-nosotros/" target="_blank">Sobre nosotros</a></li>
+    <li><a href="https://bondlabs.es/madurez-digital/" target="_blank">Madurez digital</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <a href="https://bondlabs.es/contacto/" target="_blank" class="btn-orange">HABLEMOS</a>
+    <div class="topbar-lang">ES ▾</div>
+  </div>
+</nav>
+
+<!-- SECTION LABEL -->
+<div class="section-label" data-num="[01]">HERO</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <h1 class="hero-title">
+      <span class="line-white">TECNOLOGÍA PARA</span>
+      <span class="line-white">TU NEGOCIO.</span>
+      <span class="line-orange">SIMPLIFICADA.</span>
+      <span class="line-orange">CON VALOR.</span>
+    </h1>
+    <p class="hero-sub">No diseñamos proyectos interminables. Trabajamos con soluciones tecnológicas e Inteligencia Artificial para generar impacto en tu negocio. Sin humo. Sin dependencias. Con resultados desde el primer día.</p>
+    <div class="hero-ctas">
+      <a href="https://bondlabs.es/madurez-digital/" target="_blank" class="btn-outline-white">MADUREZ DIGITAL</a>
+      <a href="https://bondlabs.es/contacto/" target="_blank" class="btn-orange">HABLEMOS</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot" style="background:#FF5F57"></div>
+        <div class="terminal-dot" style="background:#FEBC2E"></div>
+        <div class="terminal-dot" style="background:#28C840"></div>
+        <div class="terminal-title">bond-labs — terminal</div>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div><span class="t-prompt">$</span> <span class="t-cmd">npx bond-labs connect --</span><span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL PARA EXPLORAR</div>
+</section>
+
+<!-- SECTION LABEL -->
+<div class="section-label" data-num="[01]">QUIÉNES SOMOS</div>
+
+<!-- QUIÉNES SOMOS -->
+<section class="quienes">
+  <h2 class="quienes-title">UNA CANDIDATA NACIDA EN LA ERA DE LA IMAGEN MÉDICA Y LA INTELIGENCIA ARTIFICIAL.</h2>
+  <div class="quienes-body">
+    <div class="quienes-label">¿QUÉ ME DEFINE?</div>
+    <div class="quienes-text">
+      <p>Empecé encontrando lo que no es visible en imagen diagnóstica — modelos 3D para cirugías oncológicas de alta precisión. Sin atajos. Sin plantillas. Con resultados desde el primer día.</p>
+      <p>Ahora aplico esa misma disciplina a la ciberseguridad ofensiva y a los sistemas de IA. Del detalle al impacto. De la investigación al resultado.</p>
+    </div>
+  </div>
+  <div class="quienes-pills">
+    <div class="quienes-pill">
+      <div class="quienes-pill-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      Proyectos en producción, no ejercicios académicos
+    </div>
+    <div class="quienes-pill">
+      <div class="quienes-pill-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      Foco Red Team con base técnica real y criterio propio
+    </div>
+    <div class="quienes-pill">
+      <div class="quienes-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      Investigación propia activa en seguridad de sistemas IA
+    </div>
+  </div>
+</section>
+
+<!-- SECTION LABEL -->
+<div class="section-label" style="background:var(--black)" data-num="[02]">SERVICIOS</div>
+
+<!-- SERVICIOS -->
+<section class="servicios">
+  <div class="servicios-grid">
+    <div class="servicio-item">
+      <div class="servicio-num">01</div>
+      <div class="servicio-title">Red Team & Pentesting</div>
+      <div class="servicio-desc">Práctica ofensiva real. Auditorías externas e internas, explotación de vulnerabilidades, escalada de privilegios y reporte de hallazgos. Sin humo. Con resultados.</div>
+      <div class="servicio-tags">
+        <span class="servicio-tag">Kali Linux</span>
+        <span class="servicio-tag">Metasploit</span>
+        <span class="servicio-tag">Burp Suite</span>
+        <span class="servicio-tag">John the Ripper</span>
+      </div>
+      <a href="https://ksabitova.dev" target="_blank" class="servicio-link">VER PORTFOLIO →</a>
+    </div>
+    <div class="servicio-item">
+      <div class="servicio-num">02</div>
+      <div class="servicio-title">OSINT & Reconocimiento</div>
+      <div class="servicio-desc">Reconocimiento pasivo con DOMINI + SENTINEL. DNS, Whois, subdominios, puertos, headers HTTP. Todo lo que tu superficie de ataque expone sin que lo sepas.</div>
+      <div class="servicio-tags">
+        <span class="servicio-tag">Nmap</span>
+        <span class="servicio-tag">Masscan</span>
+        <span class="servicio-tag">DOMINI</span>
+        <span class="servicio-tag">SENTINEL</span>
+      </div>
+      <a href="https://domini.ksabitova.dev" target="_blank" class="servicio-link">VER PROYECTO →</a>
+    </div>
+    <div class="servicio-item">
+      <div class="servicio-num">03</div>
+      <div class="servicio-title">LLM Security & Agentic AI</div>
+      <div class="servicio-desc">Auditoría de pipelines de agentes LLM con SPECTRA. Detecta prompt injection, jailbreaks y vulnerabilidades estructurales antes de que lleguen a producción.</div>
+      <div class="servicio-tags">
+        <span class="servicio-tag">Anthropic</span>
+        <span class="servicio-tag">FastAPI</span>
+        <span class="servicio-tag">SPECTRA</span>
+        <span class="servicio-tag">Railway</span>
+      </div>
+      <a href="https://spectra.ksabitova.dev" target="_blank" class="servicio-link">VER PROYECTO →</a>
+    </div>
+    <div class="servicio-item">
+      <div class="servicio-num">04</div>
+      <div class="servicio-title">Investigación: Information Exhaust</div>
+      <div class="servicio-desc">Fuga estructural involuntaria entre capas de sistemas IA. Un vector sin tooling unificado existente. Territorio activamente explorado desde cero.</div>
+      <div class="servicio-tags">
+        <span class="servicio-tag">Python</span>
+        <span class="servicio-tag">LLM Analysis</span>
+        <span class="servicio-tag">Cross-layer</span>
+        <span class="servicio-tag">Research</span>
+      </div>
+      <a href="https://github.com/KristinaSabitova" target="_blank" class="servicio-link">VER EN GITHUB →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION LABEL -->
+<div class="section-label" style="background:var(--cream);color:#888;border-color:#ddd" data-num="[03]">CASOS DE ÉXITO</div>
+
+<!-- CASOS -->
+<section class="casos">
+  <div style="padding:3rem 3rem 1rem">
+    <h2 style="font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;color:var(--black);letter-spacing:-0.02em">Resultados que hablan por sí solos.</h2>
+  </div>
+  <div class="casos-grid">
+    <a href="https://bondlabs.es/casos-de-exito/" target="_blank" class="caso-card">
+      <div class="caso-img"><img src="https://bondlabs.es/images/cases/afianza-data.webp" alt="SPECTRA"></div>
+      <div class="caso-body">
+        <div class="caso-title">SPECTRA — AUDITORÍA DE PIPELINES LLM</div>
+        <div class="caso-desc">Detecta prompt injection, jailbreaks y vulnerabilidades estructurales en agentes de IA. FastAPI + Claude en Railway. A+ en securityheaders.com.</div>
+        <a href="https://spectra.ksabitova.dev" target="_blank" class="caso-link">VER PROYECTO →</a>
+      </div>
+    </a>
+    <a href="https://bondlabs.es/casos-de-exito/" target="_blank" class="caso-card">
+      <div class="caso-img"><img src="https://bondlabs.es/images/cases/dingoos-smartvisa.webp" alt="DOMINI"></div>
+      <div class="caso-body">
+        <div class="caso-title">DOMINI + SENTINEL — RECONOCIMIENTO PASIVO</div>
+        <div class="caso-desc">Suite de reconocimiento pasivo: DNS, Whois, subdominios, puertos con masscan/nmap, headers HTTP. Producción con A+ en securityheaders.com.</div>
+        <a href="https://domini.ksabitova.dev" target="_blank" class="caso-link">VER PROYECTO →</a>
+      </div>
+    </a>
+    <a href="https://bondlabs.es/casos-de-exito/" target="_blank" class="caso-card">
+      <div class="caso-img"><img src="https://bondlabs.es/images/cases/afianza-crm.webp" alt="Red Team"></div>
+      <div class="caso-body">
+        <div class="caso-title">PRÁCTICA OFENSIVA — VULNHUB & HTB</div>
+        <div class="caso-desc">VulnHub RickdiculouslyEasy — 7 flags + acceso root. HTB Responder — captura de hash NTLM y cracking con John the Ripper.</div>
+        <a href="https://github.com/KristinaSabitova" target="_blank" class="caso-link">VER EN GITHUB →</a>
+      </div>
+    </a>
+    <a href="https://bondlabs.es/casos-de-exito/" target="_blank" class="caso-card">
+      <div class="caso-img"><img src="https://bondlabs.es/images/cases/insurance-ai-voice-agents.webp" alt="Research"></div>
+      <div class="caso-body">
+        <div class="caso-title">INFORMATION EXHAUST — INVESTIGACIÓN IA</div>
+        <div class="caso-desc">Fuga estructural involuntaria entre capas de sistemas IA. Vector sin tooling unificado existente. Línea de investigación propia activa.</div>
+        <a href="https://ksabitova.dev" target="_blank" class="caso-link">VER PORTFOLIO →</a>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- KRISTINA -->
+<section class="k-section">
+  <div>
+    <div class="k-eyebrow">Evolve Talent Day · 25 jun 2026</div>
+    <h2>DE IMAGEN MÉDICA<br>A <span>SEGURIDAD</span><br>OFENSIVA.</h2>
+    <p>Empecé en imagen diagnóstica y planificación quirúrgica oncológica. <strong>Sin humo. Sin dependencias. Con resultados desde el primer día.</strong></p>
+    <p>Mis proyectos SPECTRA y DOMINI están en producción. No son ejercicios — son herramientas reales que funcionan y que aplican las mismas metodologías que Bond Labs usa con sus clientes.</p>
+    <a href="https://ksabitova.dev" target="_blank" class="btn-orange" style="margin-top:1.5rem;display:inline-block">VER PORTFOLIO</a>
+  </div>
+  <div class="k-card">
+    <div class="k-badge"><div class="tdot"></div> Talent Day · 25 jun 2026</div>
+    <div class="k-name">Kristina Sabitova</div>
+    <div class="k-role">CIBERSEGURIDAD · RED TEAM · IA · MÁSTER EVOLVE ACADEMY</div>
+    <p class="k-bio">В деталях вся суть. Details make the difference.</p>
+    <div class="k-pills">
+      <span class="k-pill">Pentesting</span><span class="k-pill">OSINT</span><span class="k-pill">Red Team</span>
+      <span class="k-pill">LLM Security</span><span class="k-pill">Python</span><span class="k-pill">FastAPI</span><span class="k-pill">Kali Linux</span>
+    </div>
+    <div class="k-links">
+      <a href="https://spectra.ksabitova.dev" target="_blank" class="k-link">
+        <div><div class="k-link-name">SPECTRA</div><div class="k-link-url">spectra.ksabitova.dev</div></div>
+        <span style="color:var(--orange)">→</span>
+      </a>
+      <a href="https://domini.ksabitova.dev" target="_blank" class="k-link">
+        <div><div class="k-link-name">DOMINI + SENTINEL</div><div class="k-link-url">domini.ksabitova.dev</div></div>
+        <span style="color:var(--orange)">→</span>
+      </a>
+      <a href="https://ksabitova.dev" target="_blank" class="k-link">
+        <div><div class="k-link-name">PORTFOLIO</div><div class="k-link-url">ksabitova.dev</div></div>
+        <span style="color:var(--orange)">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="partners-title">NUESTROS PARTNERS.</div>
+  <div class="partners-grid">
+    <img src="https://bondlabs.es/partners/salesforce.svg" alt="Salesforce" class="partner-logo">
+    <img src="https://bondlabs.es/partners/hubspot.svg" alt="HubSpot" class="partner-logo">
+    <img src="https://bondlabs.es/partners/adobe.svg" alt="Adobe" class="partner-logo">
+    <img src="https://bondlabs.es/partners/googlecloud.svg" alt="Google Cloud" class="partner-logo">
+    <img src="https://bondlabs.es/partners/snowflake.svg" alt="Snowflake" class="partner-logo">
+    <img src="https://bondlabs.es/partners/make.svg" alt="Make" class="partner-logo">
+    <img src="https://bondlabs.es/partners/n8n.svg" alt="n8n" class="partner-logo">
+    <img src="https://bondlabs.es/partners/datadog.svg" alt="Datadog" class="partner-logo">
+    <img src="https://bondlabs.es/partners/databricks.svg" alt="Databricks" class="partner-logo">
+    <img src="https://bondlabs.es/partners/bynder.svg" alt="Bynder" class="partner-logo">
+    <img src="https://bondlabs.es/partners/hotjar.svg" alt="Hotjar" class="partner-logo">
+    <img src="https://bondlabs.es/partners/aircall.svg" alt="Aircall" class="partner-logo">
+  </div>
+</section>
+
+<!-- ASK AI -->
+<section class="ask-ai">
+  <div class="ask-label">PREGÚNTASELO A UNA IA</div>
+  <div class="ask-title">PÍDELE A TU IA UN RESUMEN SOBRE KRISTINA SABITOVA.</div>
+  <div class="ask-btns">
+    <div class="ask-btn">
+      <svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="10"/></svg>
+      CHATGPT
+    </div>
+    <div class="ask-btn">
+      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+      CLAUDE
+    </div>
+    <div class="ask-btn">
+      <svg viewBox="0 0 24 24" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      GEMINI
+    </div>
+    <div class="ask-btn">
+      <svg viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      PERPLEXITY
+    </div>
+    <div class="ask-btn">
+      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      GROK
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-label">BOND LABS · MADRID</div>
+  <div class="cta-sep">——————————————————————————————————————————</div>
+  <h2 class="cta-title">¿HABLAMOS?</h2>
+  <p class="cta-sub">Te ayudamos a entender dónde estás, qué necesitas y cómo avanzar sin perder tiempo ni presupuesto.</p>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <a href="https://bondlabs.es/contacto/" target="_blank" class="btn-orange">CONTACTA CON NOSOTROS</a>
+    <a href="https://bondlabs.es/madurez-digital/" target="_blank" class="btn-outline-white">MADUREZ DIGITAL</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo"><img src="https://bondlabs.es/assets/bond-labs-logo-white-BFR3ixlT.png" alt="BOND LABS"></div>
+      <div style="font-size:0.68rem;color:rgba(250,250,250,0.25);letter-spacing:0.1em;margin-top:0.3rem">MARKETING · TECHNOLOGY</div>
+      <div class="footer-address">Calle de Orense, 6, Planta 2<br>Madrid, España<br><br><a href="tel:+34911676665" style="color:rgba(250,250,250,0.4);text-decoration:none">+34 91 167 66 65</a><br><a href="mailto:contacto@bondlabs.es" style="color:rgba(250,250,250,0.4);text-decoration:none">contacto@bondlabs.es</a></div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="https://bondlabs.es/servicios/" target="_blank">Servicios</a>
+      <a href="https://bondlabs.es/casos-de-exito/" target="_blank">Casos de éxito</a>
+      <a href="https://bondlabs.es/sobre-nosotros/" target="_blank">Sobre nosotros</a>
+      <a href="https://bondlabs.es/madurez-digital/" target="_blank">Madurez digital</a>
+      <a href="https://bondlabs.es/contacto/" target="_blank">Contacto</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contents</h4>
+      <a href="https://bondlabs.es/blog/" target="_blank">Blog</a>
+      <a href="https://bondlabs.es/sala-de-prensa/" target="_blank">Newsroom</a>
+    </div>
+    <div class="footer-col">
+      <h4>Partnerships</h4>
+      <a href="https://bondlabs.es/partnerships/salesforce/" target="_blank">Salesforce</a>
+      <a href="https://bondlabs.es/partnerships/hubspot/" target="_blank">HubSpot</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="https://bondlabs.es/aviso-legal/" target="_blank">Aviso legal</a>
+      <a href="https://bondlabs.es/politica-de-cookies/" target="_blank">Política de cookies</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Bond Labs · Web personalizada por Kristina Sabitova</span>
+    <a href="https://ksabitova.dev" style="color:var(--orange);text-decoration:none;font-weight:700">ksabitova.dev</a>
+  </div>
+</footer>
+
+<script>
+// ── TERMINAL TYPEWRITER ──
+var lines = [
+  {prompt:'$', text:' npx bond-labs connect --kandidato', delay:60},
+  {prompt:'', text:'', delay:400},
+  {prompt:'>', text:' Iniciando conexión con Kristina Sabitova...', delay:30, color:'#888'},
+  {prompt:'', text:'', delay:300},
+  {prompt:'✓', text:' Portfolio cargado: ksabitova.dev', delay:30, color:'#40C96E'},
+  {prompt:'✓', text:' SPECTRA live: spectra.ksabitova.dev', delay:30, color:'#40C96E'},
+  {prompt:'✓', text:' DOMINI live: domini.ksabitova.dev', delay:30, color:'#40C96E'},
+  {prompt:'', text:'', delay:300},
+  {prompt:'>', text:' Skills: Pentesting · OSINT · LLM Security · Red Team', delay:25, color:'#888'},
+  {prompt:'>', text:' Idiomas: ES · RU · EN', delay:25, color:'#888'},
+  {prompt:'', text:'', delay:400},
+  {prompt:'$', text:' _', delay:0, cursor:true},
+];
+
+var body = document.getElementById('terminal-body');
+body.innerHTML = '';
+var lineIdx = 0, charIdx = 0;
+
+function typeNext(){
+  if(lineIdx >= lines.length) return;
+  var line = lines[lineIdx];
+  if(charIdx === 0){
+    var div = document.createElement('div');
+    div.id = 'current-line';
+    var color = line.color || 'var(--white)';
+    if(line.prompt==='✓') color='#40C96E';
+    if(line.prompt==='$') color='var(--white)';
+    div.innerHTML = line.prompt ? '<span style="color:'+(line.prompt==='$'?'#4D9375':line.prompt==='✓'?'#40C96E':'#888')+'">'+(line.prompt)+' </span>' : '';
+    body.appendChild(div);
+  }
+  var current = document.getElementById('current-line');
+  if(charIdx < line.text.length){
+    var color = line.color || 'var(--white)';
+    current.innerHTML = (line.prompt ? '<span style="color:'+(line.prompt==='$'?'#4D9375':line.prompt==='✓'?'#40C96E':'#888')+'">'+(line.prompt)+' </span>' : '') +
+      '<span style="color:'+color+'">'+ line.text.slice(0,charIdx+1) +'</span>' +
+      (line.cursor?'<span class="t-cursor"></span>':'');
+    charIdx++;
+    setTimeout(typeNext, line.delay || 40);
+  } else {
+    current.id = '';
+    charIdx = 0;
+    lineIdx++;
+    setTimeout(typeNext, line.delay || 100);
+  }
+}
+setTimeout(typeNext, 800);
+
+// ── SCROLL FADE ──
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.servicio-item,.caso-card,.quienes-pill,.partner-logo').forEach(function(el){
+  el.style.opacity='0';el.style.transform='translateY(18px)';
+  el.style.transition='opacity .5s ease, transform .5s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
