@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLYC × Kristina Sabitova</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --red:#F54963;
+  --red-dark:#c4233e;
+  --black:#0a0a0a;
+  --white:#ffffff;
+  --light:#F4F4F4;
+  --muted:#878E90;
+  --teal:#2EC3CE;
+  --teal-dark:#003F46;
+  --max:1400px;
+}
+body{font-family:'Open Sans',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+
+/* ── FIXED CONTACT BUTTON ── */
+.fixed-contact{
+  position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:200;
+  background:var(--black);
+  writing-mode:vertical-rl;text-orientation:mixed;
+  padding:1.2rem 0.8rem;
+  display:flex;align-items:center;gap:0.5rem;
+  font-size:0.72rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--white);
+  text-decoration:none;
+}
+.fixed-contact svg{width:16px;height:16px;fill:var(--red);flex-shrink:0;transform:rotate(90deg)}
+.fixed-contact:hover{background:var(--red)}
+
+/* ── TOPBAR ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--white);
+  border-bottom:1px solid #eee;
+  height:64px;display:flex;align-items:center;
+  padding:0 3rem;gap:3rem;
+}
+.topbar-logo svg{width:80px;height:24px}
+.topbar-nav{display:flex;gap:2.5rem;list-style:none;margin-left:1rem}
+.topbar-nav a{
+  font-size:0.8rem;font-weight:600;color:var(--black);
+  text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;
+  transition:color .2s;
+}
+.topbar-nav a:hover{color:var(--red)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:1.5rem}
+.topbar-right a{font-size:0.78rem;font-weight:600;color:var(--muted);text-decoration:none;letter-spacing:0.05em}
+.topbar-right a:hover{color:var(--red)}
+
+/* TALENT PILL */
+.talent-pill{
+  position:fixed;top:72px;right:2rem;z-index:99;
+  background:var(--red);border-radius:4px;
+  padding:0.5rem 1rem;display:flex;align-items:center;gap:0.5rem;
+  font-size:0.7rem;color:white;font-family:'Open Sans',sans-serif;font-weight:700;
+}
+.tdot{width:6px;height:6px;border-radius:50%;background:white;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* ── HERO SLIDER ── */
+.hero{
+  margin-top:64px;
+  position:relative;
+  height:calc(100vh - 64px);
+  overflow:hidden;
+  background:var(--black);
+}
+.slide{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity .8s ease;
+}
+.slide.active{opacity:1}
+.slide img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(0.7);
+}
+.slide-content{
+  position:absolute;bottom:10%;left:5%;
+  max-width:640px;z-index:2;
+}
+.slide-tag{
+  font-size:0.7rem;font-weight:700;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--red);
+  margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.slide-tag::before{content:'';width:24px;height:2px;background:var(--red)}
+.slide-title{
+  font-size:clamp(2.5rem,5vw,5rem);
+  font-weight:800;color:var(--white);
+  line-height:0.95;letter-spacing:-0.03em;
+  text-transform:uppercase;
+  margin-bottom:0.8rem;
+}
+.slide-sub{
+  font-size:0.85rem;color:rgba(255,255,255,0.7);
+  text-transform:uppercase;letter-spacing:0.1em;
+  font-weight:600;margin-bottom:1.5rem;
+  max-width:480px;line-height:1.5;
+}
+.btn-outline-white{
+  display:inline-block;
+  border:2px solid var(--white);color:var(--white);
+  font-size:0.78rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;padding:0.8rem 2rem;
+  text-decoration:none;
+  transition:background .2s,color .2s;
+  font-family:'Open Sans',sans-serif;
+}
+.btn-outline-white:hover{background:var(--white);color:var(--black)}
+
+/* Slider dots */
+.slider-dots{
+  position:absolute;bottom:2rem;left:5%;
+  display:flex;gap:0.5rem;z-index:3;
+}
+.dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(255,255,255,0.4);cursor:pointer;
+  transition:background .2s;border:none;padding:0;
+}
+.dot.active{background:var(--red)}
+
+/* Slider arrows */
+.slider-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  z-index:3;background:none;border:none;cursor:pointer;
+  color:white;font-size:2rem;padding:1rem;
+  transition:color .2s;
+}
+.slider-arrow:hover{color:var(--red)}
+.slider-arrow.prev{left:2rem}
+.slider-arrow.next{right:3rem}
+
+/* ── LO QUE HACEMOS ── */
+.hacemos{background:var(--white);padding:5rem 0}
+.hacemos-inner{max-width:var(--max);margin:0 auto;padding:0 3rem}
+.hacemos-label{
+  font-size:0.72rem;font-weight:700;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;
+}
+.hacemos-title{
+  font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;
+  color:var(--black);letter-spacing:-0.01em;
+  margin-bottom:3rem;text-transform:uppercase;max-width:600px;
+}
+.services-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+}
+.service-item{
+  border:1px solid #eee;padding:0;
+  overflow:hidden;position:relative;
+  aspect-ratio:16/9;cursor:pointer;
+}
+.service-item img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s;filter:brightness(0.65);
+}
+.service-item:hover img{transform:scale(1.04)}
+.service-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.5rem 2rem;
+  font-size:clamp(1.2rem,2vw,1.8rem);font-weight:800;
+  text-transform:uppercase;color:var(--white);
+  letter-spacing:-0.01em;
+}
+.service-item::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;background:var(--red);
+  z-index:2;
+}
+
+/* ── OCHO SOLUCIONES ── */
+.ocho{background:var(--light);padding:5rem 0}
+.ocho-inner{max-width:var(--max);margin:0 auto;padding:0 3rem}
+.ocho-header{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:3rem;align-items:end;margin-bottom:3rem;
+}
+.ocho-title{
+  font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;
+  color:var(--black);text-transform:uppercase;letter-spacing:-0.01em;
+}
+.ocho-desc{font-size:0.88rem;color:var(--muted);line-height:1.7}
+.ocho-img{border-radius:0;overflow:hidden;aspect-ratio:16/6}
+.ocho-img img{width:100%;height:100%;object-fit:cover}
+.ocho-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:#ddd;margin-top:1px;
+}
+.ocho-item{
+  background:var(--white);padding:2rem 1.5rem;
+  transition:background .2s;cursor:default;
+}
+.ocho-item:hover{background:var(--red)}
+.ocho-item:hover .ocho-item-num,.ocho-item:hover .ocho-item-name{color:var(--white)}
+.ocho-item-num{
+  font-size:0.7rem;font-weight:700;color:var(--red);
+  letter-spacing:0.15em;margin-bottom:0.8rem;
+  transition:color .2s;
+}
+.ocho-item-name{
+  font-size:0.9rem;font-weight:700;color:var(--black);
+  text-transform:uppercase;letter-spacing:0.05em;line-height:1.2;
+  transition:color .2s;
+}
+
+/* ── NUESTRO TRABAJO ── */
+.trabajo{background:var(--white);padding:5rem 0}
+.trabajo-inner{max-width:var(--max);margin:0 auto;padding:0 3rem}
+.trabajo-header{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:2.5rem;
+}
+.trabajo-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:800;text-transform:uppercase;letter-spacing:-0.02em}
+.ver-mas{font-size:0.78rem;font-weight:700;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;text-decoration:none}
+.ver-mas:hover{color:var(--red)}
+.trabajo-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
+}
+.trabajo-card{
+  position:relative;overflow:hidden;cursor:pointer;
+  aspect-ratio:4/3;
+}
+.trabajo-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s;
+}
+.trabajo-card:hover img{transform:scale(1.04)}
+.trabajo-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:1.8rem;
+}
+.trabajo-card-cat{
+  font-size:0.62rem;font-weight:700;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--red);margin-bottom:0.4rem;
+}
+.trabajo-card-title{
+  font-size:1.1rem;font-weight:800;color:var(--white);
+  text-transform:uppercase;letter-spacing:-0.01em;line-height:1.1;
+}
+
+/* ── KRISTINA ── */
+.k-section{background:var(--black);padding:5rem 0}
+.k-inner{max-width:var(--max);margin:0 auto;padding:0 3rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.k-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.k-eyebrow::before{content:'';width:20px;height:2px;background:var(--red)}
+.k-section h2{font-size:clamp(1.6rem,3vw,2.8rem);font-weight:800;color:white;text-transform:uppercase;letter-spacing:-0.02em;margin-bottom:1.2rem;line-height:1.0}
+.k-section h2 span{color:var(--red)}
+.k-section p{font-size:0.88rem;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:0.8rem}
+.k-section strong{color:white;font-weight:700}
+.btn-red-outline{
+  display:inline-block;border:2px solid var(--red);color:var(--red);
+  font-size:0.78rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;padding:0.8rem 2rem;
+  text-decoration:none;margin-top:1.5rem;
+  transition:background .2s,color .2s;font-family:'Open Sans',sans-serif;
+}
+.btn-red-outline:hover{background:var(--red);color:white}
+
+.k-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  padding:2.4rem;position:relative;overflow:hidden;
+}
+.k-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red)}
+.k-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  border:1px solid rgba(245,73,99,0.3);
+  padding:0.3rem 0.8rem;margin-bottom:1.4rem;
+  font-size:0.62rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--red);
+}
+.k-name{font-size:1.5rem;font-weight:800;color:white;margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:-0.01em}
+.k-role{font-size:0.72rem;color:rgba(255,255,255,0.35);margin-bottom:1.2rem;letter-spacing:0.05em}
+.k-bio{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:1.2rem}
+.k-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.k-pill{border:1px solid rgba(255,255,255,0.1);padding:0.2rem 0.6rem;font-size:0.62rem;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:0.06em;text-transform:uppercase}
+.k-links{display:flex;flex-direction:column;gap:0.4rem}
+.k-link{
+  display:flex;align-items:center;justify-content:space-between;
+  border:1px solid rgba(245,73,99,0.2);
+  padding:0.75rem 1rem;text-decoration:none;
+  transition:border-color .2s,background .2s;
+}
+.k-link:hover{border-color:var(--red);background:rgba(245,73,99,0.06)}
+.k-link-name{font-size:0.78rem;font-weight:700;color:white;text-transform:uppercase;letter-spacing:0.04em}
+.k-link-url{font-size:0.62rem;color:var(--red);opacity:0.7}
+
+/* ── AUDACES CTA ── */
+.audaces{
+  background:var(--light);
+  padding:4rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:3rem;max-width:100%;
+}
+.audaces h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:-0.01em}
+.audaces p{font-size:0.85rem;color:var(--muted);max-width:460px;line-height:1.6}
+.btn-red{
+  display:inline-block;
+  border:2px solid var(--red);color:var(--red);
+  font-size:0.78rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;padding:0.8rem 2rem;
+  text-decoration:none;white-space:nowrap;
+  transition:background .2s,color .2s;font-family:'Open Sans',sans-serif;
+}
+.btn-red:hover{background:var(--red);color:white}
+
+/* ── FOOTER ── */
+footer{background:var(--red);padding:3rem 0 1.5rem}
+.footer-inner{
+  max-width:var(--max);margin:0 auto;padding:0 3rem;
+  display:grid;grid-template-columns:repeat(6,1fr);gap:1.5rem;
+  margin-bottom:2rem;
+}
+.footer-col h4{font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:1rem}
+.footer-col a{display:block;font-size:0.78rem;color:rgba(255,255,255,0.8);text-decoration:none;margin-bottom:0.5rem;font-weight:600;transition:color .2s}
+.footer-col a:hover{color:white}
+.footer-logo svg path{fill:white}
+.footer-bottom{
+  max-width:var(--max);margin:0 auto;padding:1.2rem 3rem 0;
+  border-top:1px solid rgba(255,255,255,0.2);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.7rem;color:rgba(255,255,255,0.6);
+}
+
+@media(max-width:900px){
+  .topbar-nav{display:none}
+  .services-grid,.ocho-header,.k-inner,.trabajo-grid{grid-template-columns:1fr}
+  .ocho-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{grid-template-columns:repeat(2,1fr)}
+  .talent-pill,.fixed-contact{display:none}
+  .audaces{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- FIXED CONTACT -->
+<a href="https://llyc.global/contacto/" target="_blank" class="fixed-contact">
+  <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+  Contáctanos
+</a>
+
+<!-- TALENT PILL -->
+<div class="talent-pill">
+  <div class="tdot"></div>
+  <span>Evolve Talent Day · <strong>25 jun 2026</strong></span>
+</div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-logo">
+    <svg width="100" height="30" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M7.67041 0.454468H0V29.4619H20.1181V23.0062H7.67041V0.454468Z" fill="#F54963"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M32.3126 0.454468H24.6436V29.4619H44.7615V23.0062H32.3126V0.454468Z" fill="#F54963"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M57.5017 12.9101L50.5444 0.454468H42.874L53.6879 20.3995V29.4619H61.3584V20.1922L71.9611 0.454468H64.292L57.5017 12.9101Z" fill="#F54963"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M95.5148 19.8202C94.4813 20.8685 93.3078 21.6962 91.9957 22.3021C90.6811 22.9093 89.4242 23.2134 88.2224 23.2134C86.7421 23.2134 85.3945 22.8474 84.1779 22.1167C82.9628 21.3859 82.0054 20.3706 81.3067 19.0701C80.608 17.7709 80.2587 16.3187 80.2587 14.7147C80.2587 13.1107 80.608 11.6585 81.3067 10.3593C82.0054 9.05884 82.9628 8.04352 84.1779 7.31277C85.3945 6.58202 86.7421 6.21605 88.2224 6.21605C89.4242 6.21605 90.6811 6.52015 91.9957 7.12737C93.3078 7.73459 94.4813 8.56228 95.5148 9.6106L100 5.15991C98.4937 3.54468 96.7378 2.28468 94.7309 1.37933C92.724 0.474 90.5606 0.0213623 88.2407 0.0213623C85.5049 0.0213623 83.0033 0.668194 80.7347 1.96089C78.4674 3.25358 76.6772 5.0296 75.3639 7.28775C74.0493 9.54727 73.3919 12.0269 73.3919 14.7147C73.3919 17.4025 74.0493 19.8821 75.3639 22.1416C76.6772 24.3998 78.4674 26.1758 80.7347 27.4685C83.0033 28.7612 85.5049 29.408 88.2407 29.408C90.5606 29.408 92.724 28.9554 94.7309 28.05C96.7378 27.1447 98.4937 25.8847 100 24.2695L95.5148 19.8202Z" fill="#F54963"/>
+    </svg>
+  </div>
+  <ul class="topbar-nav">
+    <li><a href="https://llyc.global/marketing/" target="_blank">Marketing</a></li>
+    <li><a href="https://llyc.global/corporate-affairs/" target="_blank">Corporate Affairs</a></li>
+    <li><a href="https://llyc.global/ia/" target="_blank">IA</a></li>
+    <li><a href="https://llyc.global/ideas/" target="_blank">Ideas</a></li>
+    <li><a href="https://llyc.global/nosotros/" target="_blank">Nosotros</a></li>
+    <li><a href="https://llyc.global/inversores/" target="_blank">Inversores</a></li>
+  </ul>
+  <div class="topbar-right">
+    <a href="https://llyc.global/buscador/" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </a>
+    <a href="#">ES</a>
+  </div>
+</nav>
+
+<!-- HERO SLIDER -->
+<section class="hero">
+  <div class="slide active">
+    <img src="https://llyc.global/wp-content/uploads/2026/05/UNO_home_slider_desktop.jpg" alt="UNO">
+    <div class="slide-content">
+      <div class="slide-tag">Kristina Sabitova</div>
+      <div class="slide-title">UNO</div>
+      <div class="slide-sub">EL FUTURO ES UNA CONVERSACIÓN</div>
+      <a href="https://ksabitova.dev" target="_blank" class="btn-outline-white">Ver portfolio</a>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="https://llyc.global/wp-content/uploads/2026/04/IA_home_desktop.jpg" alt="IA">
+    <div class="slide-content">
+      <div class="slide-tag">Red Team · LLM Security</div>
+      <div class="slide-title">IA: SEGURIDAD<br>DUAL</div>
+      <div class="slide-sub">LOS SISTEMAS YA NO SOLO CREAN. TAMBIÉN PUEDEN SER ATACADOS.</div>
+      <a href="https://spectra.ksabitova.dev" target="_blank" class="btn-outline-white">Ver SPECTRA</a>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="https://llyc.global/wp-content/uploads/2025/09/PartnersforWhatsNext_home_Desktop.jpg" alt="Partners">
+    <div class="slide-content">
+      <div class="slide-tag">Evolve Talent Day · 25 jun 2026</div>
+      <div class="slide-title">PARTNERS<br>FOR WHAT'S<br>NEXT</div>
+      <div class="slide-sub">В ДЕТАЛЯХ ВСЯ СУТЬ. DETAILS MAKE THE DIFFERENCE.</div>
+      <a href="https://ksabitova.dev" target="_blank" class="btn-outline-white">Conocer más</a>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="https://llyc.global/wp-content/uploads/2025/04/Audaces_Desktop.jpg" alt="Audaces">
+    <div class="slide-content">
+      <div class="slide-tag">Ciberseguridad · OSINT</div>
+      <div class="slide-title">DOMINI<br>+<br>SENTINEL</div>
+      <div class="slide-sub">RECONOCIMIENTO PASIVO. INTELIGENCIA REAL.</div>
+      <a href="https://domini.ksabitova.dev" target="_blank" class="btn-outline-white">Ver proyecto</a>
+    </div>
+  </div>
+
+  <button class="slider-arrow prev" onclick="changeSlide(-1)">&#8592;</button>
+  <button class="slider-arrow next" onclick="changeSlide(1)">&#8594;</button>
+  <div class="slider-dots" id="dots">
+    <button class="dot active" onclick="goSlide(0)"></button>
+    <button class="dot" onclick="goSlide(1)"></button>
+    <button class="dot" onclick="goSlide(2)"></button>
+    <button class="dot" onclick="goSlide(3)"></button>
+  </div>
+</section>
+
+<!-- LO QUE HACEMOS -->
+<section class="hacemos">
+  <div class="hacemos-inner">
+    <div class="hacemos-label">Lo que hacemos para impulsar tu negocio</div>
+    <div class="hacemos-title">Conectamos innovación, datos, creatividad y seguridad.</div>
+    <div class="services-grid">
+      <a href="https://llyc.global/marketing/" target="_blank" class="service-item">
+        <img src="https://llyc.global/wp-content/uploads/2025/09/MKT.png" alt="Marketing">
+        <div class="service-label">MARKETING</div>
+      </a>
+      <a href="https://llyc.global/corporate-affairs/" target="_blank" class="service-item">
+        <img src="https://llyc.global/wp-content/uploads/2025/09/CCAA.png" alt="Corporate Affairs">
+        <div class="service-label">CORPORATE AFFAIRS</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- OCHO SOLUCIONES / MI PERFIL -->
+<section class="ocho">
+  <div class="ocho-inner">
+    <div class="ocho-header">
+      <h2 class="ocho-title">Lo que aporto en ocho puntos.</h2>
+      <p class="ocho-desc">Un perfil construido desde la imagen diagnóstica hasta la seguridad ofensiva y la IA. Cada etapa ha refinado la misma habilidad: encontrar lo que no es visible pero importa.</p>
+    </div>
+    <div class="ocho-img">
+      <img src="https://llyc.global/wp-content/uploads/2026/04/Rectangle-207-2.png" alt="LLYC">
+    </div>
+    <div class="ocho-grid">
+      <div class="ocho-item"><div class="ocho-item-num">01</div><div class="ocho-item-name">Red Team<br>Ofensivo</div></div>
+      <div class="ocho-item"><div class="ocho-item-num">02</div><div class="ocho-item-name">OSINT &<br>Reconocimiento</div></div>
+      <div class="ocho-item"><div class="ocho-item-num">03</div><div class="ocho-item-name">LLM Security<br>& AI Auditing</div></div>
+      <div class="ocho-item"><div class="ocho-item-num">04</div><div class="ocho-item-name">Pentesting<br>Web & Red</div></div>
+      <div class="ocho-item"><div class="ocho-item-num">05</div><div class="ocho-item-name">Python &<br>FastAPI</div></div>
+      <div class="ocho-item"><div class="ocho-item-num">06</div><div class="ocho-item-name">Imagen<br>Diagnóstica</div></div>
+      <div class="ocho-item"><div class="ocho-item-num">07</div><div class="ocho-item-name">ES · RU · EN<br>Fluido</div></div>
+      <div class="ocho-item"><div class="ocho-item-num">08</div><div class="ocho-item-name">Design<br>Thinking</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NUESTRO TRABAJO -->
+<section class="trabajo">
+  <div class="trabajo-inner">
+    <div class="trabajo-header">
+      <h2 class="trabajo-title">Mi trabajo</h2>
+      <a href="https://github.com/KristinaSabitova" target="_blank" class="ver-mas">Ver más →</a>
+    </div>
+    <div class="trabajo-grid">
+      <a href="https://spectra.ksabitova.dev" target="_blank" class="trabajo-card">
+        <img src="https://llyc.global/wp-content/uploads/2026/04/IA_home_desktop.jpg" alt="SPECTRA">
+        <div class="trabajo-card-overlay">
+          <div class="trabajo-card-cat">AI Security · Live</div>
+          <div class="trabajo-card-title">SPECTRA — Auditoría de pipelines LLM</div>
+        </div>
+      </a>
+      <a href="https://domini.ksabitova.dev" target="_blank" class="trabajo-card">
+        <img src="https://llyc.global/wp-content/uploads/2025/11/machine_marketing_home_desktop.jpg" alt="DOMINI">
+        <div class="trabajo-card-overlay">
+          <div class="trabajo-card-cat">OSINT · Recon · Live</div>
+          <div class="trabajo-card-title">DOMINI + SENTINEL — Reconocimiento pasivo</div>
+        </div>
+      </a>
+      <a href="https://github.com/KristinaSabitova" target="_blank" class="trabajo-card">
+        <img src="https://llyc.global/wp-content/uploads/2026/03/Igualdad_home_desktop_es.jpg" alt="Red Team">
+        <div class="trabajo-card-overlay">
+          <div class="trabajo-card-cat">Red Team · CTF</div>
+          <div class="trabajo-card-title">Práctica ofensiva — VulnHub & HTB</div>
+        </div>
+      </a>
+      <a href="https://github.com/KristinaSabitova" target="_blank" class="trabajo-card">
+        <img src="https://llyc.global/wp-content/uploads/2025/09/PartnersforWhatsNext_home_Desktop.jpg" alt="Research">
+        <div class="trabajo-card-overlay">
+          <div class="trabajo-card-cat">Investigación propia</div>
+          <div class="trabajo-card-title">Information Exhaust — Cross-layer leakage en IA</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- KRISTINA -->
+<section class="k-section">
+  <div class="k-inner">
+    <div>
+      <div class="k-eyebrow">Evolve Talent Day · 25 jun 2026</div>
+      <h2>DE IMAGEN MÉDICA<br>A <span>SEGURIDAD</span><br>OFENSIVA.</h2>
+      <p>Empecé mi carrera en imagen diagnóstica y planificación quirúrgica oncológica. <strong>Esa disciplina de mirar donde nadie mira es la misma que aplico ahora.</strong></p>
+      <p>Mis proyectos SPECTRA y DOMINI están en producción, con A+ en securityheaders.com. No son ejercicios — son herramientas reales que funcionan.</p>
+      <a href="https://ksabitova.dev" target="_blank" class="btn-red-outline">Ver portfolio completo</a>
+    </div>
+    <div class="k-card">
+      <div class="k-badge"><div class="tdot"></div> Talent Day · 25 jun 2026</div>
+      <div class="k-name">Kristina Sabitova</div>
+      <div class="k-role">CIBERSEGURIDAD · RED TEAM · IA · MÁSTER EVOLVE ACADEMY</div>
+      <p class="k-bio">В деталях вся суть. Details make the difference.</p>
+      <div class="k-pills">
+        <span class="k-pill">Pentesting</span><span class="k-pill">OSINT</span><span class="k-pill">Red Team</span>
+        <span class="k-pill">LLM Security</span><span class="k-pill">Python</span><span class="k-pill">Kali Linux</span><span class="k-pill">FastAPI</span>
+      </div>
+      <div class="k-links">
+        <a href="https://spectra.ksabitova.dev" target="_blank" class="k-link">
+          <div><div class="k-link-name">SPECTRA</div><div class="k-link-url">spectra.ksabitova.dev</div></div>
+          <span style="color:var(--red)">→</span>
+        </a>
+        <a href="https://domini.ksabitova.dev" target="_blank" class="k-link">
+          <div><div class="k-link-name">DOMINI + SENTINEL</div><div class="k-link-url">domini.ksabitova.dev</div></div>
+          <span style="color:var(--red)">→</span>
+        </a>
+        <a href="https://ksabitova.dev" target="_blank" class="k-link">
+          <div><div class="k-link-name">PORTFOLIO</div><div class="k-link-url">ksabitova.dev</div></div>
+          <span style="color:var(--red)">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDACES CTA -->
+<div class="audaces">
+  <div>
+    <h2>ÚNETE A LA CONVERSACIÓN</h2>
+    <p>La comunidad que apuesta por perfiles innovadores, creativos e influyentes. El futuro es una conversación.</p>
+  </div>
+  <a href="https://llyc.global/contacto/" target="_blank" class="btn-red">CONTACTA</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo" style="margin-bottom:1.2rem">
+        <svg width="80" height="24" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.67041 0.454468H0V29.4619H20.1181V23.0062H7.67041V0.454468Z" fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M32.3126 0.454468H24.6436V29.4619H44.7615V23.0062H32.3126V0.454468Z" fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M57.5017 12.9101L50.5444 0.454468H42.874L53.6879 20.3995V29.4619H61.3584V20.1922L71.9611 0.454468H64.292L57.5017 12.9101Z" fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M95.5148 19.8202C94.4813 20.8685 93.3078 21.6962 91.9957 22.3021C90.6811 22.9093 89.4242 23.2134 88.2224 23.2134C86.7421 23.2134 85.3945 22.8474 84.1779 22.1167C82.9628 21.3859 82.0054 20.3706 81.3067 19.0701C80.608 17.7709 80.2587 16.3187 80.2587 14.7147C80.2587 13.1107 80.608 11.6585 81.3067 10.3593C82.0054 9.05884 82.9628 8.04352 84.1779 7.31277C85.3945 6.58202 86.7421 6.21605 88.2224 6.21605C89.4242 6.21605 90.6811 6.52015 91.9957 7.12737C93.3078 7.73459 94.4813 8.56228 95.5148 9.6106L100 5.15991C98.4937 3.54468 96.7378 2.28468 94.7309 1.37933C92.724 0.474 90.5606 0.0213623 88.2407 0.0213623C85.5049 0.0213623 83.0033 0.668194 80.7347 1.96089C78.4674 3.25358 76.6772 5.0296 75.3639 7.28775C74.0493 9.54727 73.3919 12.0269 73.3919 14.7147C73.3919 17.4025 74.0493 19.8821 75.3639 22.1416C76.6772 24.3998 78.4674 26.1758 80.7347 27.4685C83.0033 28.7612 85.5049 29.408 88.2407 29.408C90.5606 29.408 92.724 28.9554 94.7309 28.05C96.7378 27.1447 98.4937 25.8847 100 24.2695L95.5148 19.8202Z" fill="white"/>
+        </svg>
+      </div>
+      <h4>LLYC</h4>
+      <a href="https://llyc.global/contacto/" target="_blank">Contáctanos</a>
+      <a href="https://llyc.global/talento/" target="_blank">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <a href="https://llyc.global/marketing/" target="_blank">Marketing</a>
+      <a href="https://llyc.global/corporate-affairs/" target="_blank">Corporate Affairs</a>
+      <a href="https://llyc.global/ia/" target="_blank">IA</a>
+    </div>
+    <div class="footer-col">
+      <h4>Ideas</h4>
+      <a href="https://llyc.global/ideas/" target="_blank">LLYC Ideas</a>
+      <a href="https://www.llycventuring.com/" target="_blank">LLYC Venturing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Proyectos</h4>
+      <a href="https://spectra.ksabitova.dev" target="_blank">SPECTRA</a>
+      <a href="https://domini.ksabitova.dev" target="_blank">DOMINI</a>
+      <a href="https://ksabitova.dev" target="_blank">Portfolio</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <a href="https://es.linkedin.com/in/kristina-solomatova-sabitova-8207a4163" target="_blank">LinkedIn</a>
+      <a href="mailto:sabitova.solomatova@gmail.com">Email</a>
+      <a href="https://github.com/KristinaSabitova" target="_blank">GitHub</a>
+    </div>
+    <div class="footer-col">
+      <h4>Formación</h4>
+      <a href="https://evolve.es" target="_blank">Evolve Academy</a>
+      <a href="https://evolve.es/formacion/masters/master-ciberseguridad-inteligencia-artificial-online/" target="_blank">Máster Ciber & IA</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 LLYC · Web personalizada por Kristina Sabitova</span>
+    <a href="https://ksabitova.dev" style="color:rgba(255,255,255,0.8);text-decoration:none;font-weight:700">ksabitova.dev</a>
+  </div>
+</footer>
+
+<script>
+// ── SLIDER ──
+var current = 0;
+var slides = document.querySelectorAll('.slide');
+var dots = document.querySelectorAll('.dot');
+var timer;
+
+function goSlide(n) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  resetTimer();
+}
+
+function changeSlide(dir) { goSlide(current + dir); }
+
+function resetTimer() {
+  clearInterval(timer);
+  timer = setInterval(function(){ changeSlide(1); }, 5000);
+}
+resetTimer();
+
+// ── SCROLL FADE IN ──
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.ocho-item,.trabajo-card,.k-card,.service-item').forEach(function(el){
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity .5s ease, transform .5s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
