@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kristina Sabitova | Evolve</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#0a0a0a;overflow-x:hidden}
+
+:root{
+  --black:#0a0a0a;
+  --dark:#1a1a1a;
+  --gray:#f5f5f3;
+  --light-gray:#f0f0ee;
+  --border:#e2e2e0;
+  --muted:#6b6b6b;
+  --white:#fff;
+  --radius:20px;
+  --max:1200px;
+  --gap:2rem;
+}
+
+/* ── HEADER — centered like evolve.es original ── */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  height:72px;
+  display:flex;align-items:center;
+  padding:0 3rem;
+  justify-content:space-between;
+}
+/* Header is: logo left | nothing center | actions right
+   But the HERO TEXT is centered like the original */
+.logo-link{display:flex;align-items:center;gap:0.5rem;text-decoration:none}
+.logo-link img{height:30px;width:auto}
+.logo-link span{font-size:1rem;font-weight:700;color:var(--black)}
+.header-right{display:flex;align-items:center;gap:1rem}
+.nav-login{
+  font-size:0.82rem;font-weight:600;color:var(--black);
+  text-decoration:none;padding:0.5rem 1.2rem;
+  border:1.5px solid var(--black);border-radius:999px;
+  transition:background .2s,color .2s;
+}
+.nav-login:hover{background:var(--black);color:#fff}
+.hamburger{background:none;border:none;cursor:pointer;color:var(--black);display:flex;flex-direction:column;gap:5px;padding:0.3rem}
+.hamburger span{display:block;width:22px;height:2px;background:currentColor;border-radius:1px}
+
+/* ── HERO — CENTERED like evolve.es original ── */
+.hero{
+  position:relative;
+  min-height:calc(100vh - 72px);
+  background:var(--gray);
+  overflow:hidden;
+  padding:5rem 3rem 0;
+  display:flex;align-items:flex-start;
+  justify-content:center;
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:700px;
+  padding-top:1.5rem;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+}
+.hero h1{
+  font-size:clamp(2.2rem,4vw,3.8rem);
+  font-weight:600;line-height:1.08;
+  letter-spacing:-0.03em;color:var(--black);
+  margin-bottom:1.5rem;
+  text-align:center;
+}
+.hero p{
+  font-size:1rem;font-weight:400;color:var(--muted);
+  line-height:1.7;max-width:580px;margin-bottom:2.5rem;
+  text-align:center;
+}
+.globe-wrap{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(900px,92vw);
+  height:min(450px,46vw);
+  overflow:hidden;
+  pointer-events:none;
+}
+canvas#globe{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  height:200%;
+  pointer-events:all;
+  cursor:pointer;
+}
+
+/* ── DARK BANNER — centered ── */
+.dark-banner{
+  background:var(--dark);
+  padding:1.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;
+  text-align:left;
+}
+.dark-banner p{font-size:0.9rem;color:rgba(255,255,255,0.85);line-height:1.55;max-width:680px}
+
+/* ── STATS — NOT centered, card grid ── */
+.stats-section{padding:5rem 3rem}
+.stats-inner{max-width:var(--max);margin:0 auto}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.stat-card{background:var(--gray);border-radius:var(--radius);padding:1.8rem}
+.stat-card img{width:32px;height:32px;margin-bottom:1.2rem;display:block}
+.stat-num{font-size:2.5rem;font-weight:700;color:var(--black);letter-spacing:-0.04em;line-height:1;display:block;margin-bottom:0.3rem}
+.stat-label{font-size:0.82rem;color:var(--muted)}
+
+/* ── COURSES — NOT centered, scroll swiper ── */
+.courses-section{padding:5rem 3rem}
+.courses-inner{max-width:var(--max);margin:0 auto}
+.section-label{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);border:1.5px solid var(--border);
+  border-radius:999px;padding:0.3rem 0.9rem;margin-bottom:1.5rem;
+}
+.section-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--muted)}
+h2.section-h{
+  font-size:clamp(1.8rem,3.2vw,2.8rem);
+  font-weight:600;letter-spacing:-0.03em;color:var(--black);
+  line-height:1.08;margin-bottom:0.6rem;
+}
+.section-sub{font-size:0.95rem;color:var(--muted);line-height:1.6;margin-bottom:2rem;max-width:480px}
+.courses-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;
+}
+.course-card{
+  border-radius:var(--radius);overflow:hidden;
+  position:relative;text-decoration:none;
+  aspect-ratio:3/4;display:block;
+  transition:transform .2s;
+}
+.course-card:hover{transform:translateY(-3px)}
+.course-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center top;
+}
+.course-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(transparent 35%,rgba(0,0,0,0.72));
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:1.2rem;
+}
+.course-meta{font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.4rem}
+.course-title{font-size:0.9rem;font-weight:700;color:#fff;line-height:1.2}
+
+/* ── TEACHERS — NOT centered, horizontal swiper ── */
+.teachers-section{padding:5rem 3rem;background:var(--gray)}
+.teachers-inner{max-width:var(--max);margin:0 auto}
+.swiper-wrapper{display:flex;gap:1.5rem;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth;padding-bottom:1rem}
+.swiper-wrapper::-webkit-scrollbar{display:none}
+.teacher-card{flex:0 0 220px}
+.teacher-img{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--light-gray)}
+.teacher-img img{width:100%;height:100%;object-fit:cover;display:block}
+.company-badge{
+  position:absolute;bottom:0.8rem;left:0.8rem;right:0.8rem;
+  background:rgba(255,255,255,0.95);
+  border-radius:10px;padding:0.45rem 0.6rem;
+  display:flex;align-items:center;
+}
+.company-badge img{max-height:16px;width:auto;object-fit:contain}
+.teacher-name{font-size:0.88rem;font-weight:600;color:var(--black);margin-top:0.7rem;margin-bottom:0.2rem}
+.teacher-role{font-size:0.76rem;color:var(--muted)}
+.swiper-nav{display:flex;gap:0.5rem;margin-top:1.5rem}
+.swiper-btn{
+  width:40px;height:40px;border-radius:50%;
+  border:1.5px solid var(--border);background:var(--white);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:background .2s,border-color .2s;
+}
+.swiper-btn:hover{background:var(--black);color:#fff;border-color:var(--black)}
+
+/* ── LEARNING + COMPANIES — 2-col split rows ── */
+.learning-section{padding:5rem 3rem}
+.learning-inner{max-width:var(--max);margin:0 auto}
+.split-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);
+  align-items:center;margin-bottom:6rem;
+}
+.split-row:last-child{margin-bottom:0}
+.split-text h2{font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:600;letter-spacing:-0.03em;color:var(--black);line-height:1.08;margin-bottom:0.8rem}
+.split-text p{font-size:0.95rem;color:var(--muted);line-height:1.65}
+.split-text p strong{color:var(--black);font-weight:600}
+.split-imgs{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.split-imgs img{width:100%;border-radius:var(--radius);display:block}
+
+/* ── COMPANIES — CENTERED marquee ── */
+.companies-section{padding:3rem 3rem;border-top:1px solid var(--border);text-align:center}
+.companies-inner{max-width:var(--max);margin:0 auto}
+.companies-label{font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem;display:block}
+.marquee-wrap{overflow:hidden;position:relative}
+.marquee-track{
+  display:flex;gap:3.5rem;align-items:center;
+  animation:marquee 28s linear infinite;
+  white-space:nowrap;width:max-content;
+}
+.marquee-track img{height:26px;width:auto;opacity:0.45;flex-shrink:0;object-fit:contain}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── TECH ENABLEMENT — NOT centered, numbered cards ── */
+.enablement-section{padding:5rem 3rem;background:var(--light-gray)}
+.enablement-inner{max-width:var(--max);margin:0 auto}
+.enablement-top{margin-bottom:2.5rem}
+.num-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem}
+.num-card{background:var(--white);border-radius:var(--radius);padding:2rem;border:1.5px solid var(--border);transition:border-color .2s,transform .2s}
+.num-card:hover{border-color:var(--black);transform:translateY(-2px)}
+.num-idx{font-size:1.6rem;font-weight:300;color:var(--border);display:block;margin-bottom:1rem;letter-spacing:-0.02em}
+.num-card h4{font-size:1rem;font-weight:700;color:var(--black);margin-bottom:0.5rem}
+.num-card p{font-size:0.87rem;color:var(--muted);line-height:1.6}
+.num-card a{display:inline-block;margin-top:0.8rem;font-size:0.82rem;font-weight:600;color:var(--black);text-decoration:none;border-bottom:1px solid var(--black)}
+
+/* ── TESTIMONIALS — NOT centered, swiper with one main video ── */
+.testimonials-section{padding:5rem 3rem}
+.testimonials-inner{max-width:var(--max);margin:0 auto}
+.testimonials-list{display:flex;gap:1.5rem;margin-top:2.5rem;overflow-x:auto;scrollbar-width:none}
+.testimonials-list::-webkit-scrollbar{display:none}
+.testimonial-item{flex:0 0 340px}
+.testimonial-video-wrap{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  cursor:pointer;background:var(--black);
+}
+.testimonial-video-wrap video{
+  width:100%;aspect-ratio:16/11;object-fit:cover;display:block;opacity:0.75;
+  transition:opacity .3s;
+}
+.testimonial-video-wrap:hover video{opacity:0.9}
+.testimonial-play{
+  position:absolute;top:1rem;left:1rem;
+  width:40px;height:40px;border-radius:50%;
+  border:2px solid rgba(255,255,255,0.7);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.1);
+  transition:background .2s;
+}
+.testimonial-video-wrap:hover .testimonial-play{background:rgba(255,255,255,0.25)}
+.testimonial-quote-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.2rem;
+  background:linear-gradient(transparent,rgba(0,0,0,0.7));
+}
+.t-quote{font-size:0.82rem;font-weight:500;color:#fff;line-height:1.4;margin-bottom:0.5rem;font-style:italic}
+.t-author{font-size:0.75rem;color:rgba(255,255,255,0.65)}
+.t-author strong{color:#fff;font-weight:600}
+
+/* QUIENES YA LIDERAN — left heading, right subtext ── */
+.lideran-section{padding:5rem 3rem}
+.lideran-inner{max-width:var(--max);margin:0 auto}
+.lideran-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:2.5rem}
+.lideran-header h2{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:600;letter-spacing:-0.03em;color:var(--black);line-height:1.05}
+.lideran-header p{font-size:0.97rem;color:var(--muted);line-height:1.65;padding-top:0.5rem}
+.lideran-header p strong{color:var(--black)}
+
+/* ── EVOLUTION — CENTERED heading, 3-col cards ── */
+.evolution-section{padding:5rem 3rem;background:var(--light-gray)}
+.evolution-inner{max-width:var(--max);margin:0 auto;text-align:left}
+.evolution-inner h2{text-align:left}
+.evolution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2.5rem}
+.evolution-item img{width:100%;border-radius:var(--radius);aspect-ratio:4/3;object-fit:cover;display:block;margin-bottom:1rem}
+.evolution-item h3{font-size:1rem;font-weight:600;color:var(--black);margin-bottom:0.4rem}
+.evolution-item p{font-size:0.87rem;color:var(--muted);line-height:1.6}
+
+/* ── FAQ ── */
+.faq-section{padding:5rem 3rem}
+.faq-inner{max-width:800px;margin:0 auto}
+.faq-section h2{text-align:left;margin-bottom:2.5rem}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-btn{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 0;background:none;border:none;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:0.95rem;font-weight:500;color:var(--black);
+  text-align:left;gap:1rem;
+}
+.faq-plus{
+  width:28px;height:28px;border-radius:50%;
+  border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;color:var(--black);flex-shrink:0;
+  transition:transform .25s,background .25s,border-color .25s;
+}
+.faq-item.open .faq-plus{transform:rotate(45deg);background:var(--black);color:#fff;border-color:var(--black)}
+.faq-answer{
+  font-size:0.88rem;color:var(--muted);line-height:1.7;
+  max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;
+}
+.faq-item.open .faq-answer{max-height:300px;padding-bottom:1.2rem}
+.faq-more{margin-top:2rem}
+
+/* ── BUTTONS ── */
+.btn-black{
+  display:inline-block;background:var(--black);color:#fff;
+  font-size:0.88rem;font-weight:600;padding:0.8rem 1.8rem;
+  border-radius:999px;text-decoration:none;border:none;cursor:pointer;
+  transition:opacity .2s,transform .1s;
+}
+.btn-black:hover{opacity:0.8;transform:translateY(-1px)}
+.btn-outline{
+  display:inline-block;background:transparent;color:var(--black);
+  font-size:0.88rem;font-weight:600;padding:0.8rem 1.8rem;
+  border-radius:999px;text-decoration:none;
+  border:1.5px solid var(--black);
+  transition:background .2s,color .2s;
+}
+.btn-outline:hover{background:var(--black);color:#fff}
+.btn-white{
+  display:inline-block;background:#fff;color:var(--black);
+  font-size:0.82rem;font-weight:600;
+  padding:0.65rem 1.4rem;border-radius:999px;
+  text-decoration:none;white-space:nowrap;transition:opacity .2s;flex-shrink:0;
+}
+.btn-white:hover{opacity:0.85}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:4rem 3rem 2rem}
+.footer-cols{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;
+  max-width:var(--max);margin:0 auto;
+  padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.footer-col h4{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.2rem}
+.footer-col a{display:block;font-size:0.85rem;color:rgba(255,255,255,0.65);text-decoration:none;margin-bottom:0.55rem;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{
+  max-width:var(--max);margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:1.5rem;flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{display:flex;align-items:center;gap:0.5rem}
+.footer-logo img{height:26px;filter:brightness(0) invert(1)}
+.footer-logo span{font-size:0.9rem;font-weight:700;color:#fff}
+.footer-social{display:flex;gap:1rem}
+.footer-social a{color:rgba(255,255,255,0.4);text-decoration:none;transition:color .2s}
+.footer-social a:hover{color:#fff}
+.footer-legal{font-size:0.72rem;color:rgba(255,255,255,0.25);display:flex;gap:1rem;flex-wrap:wrap}
+
+@media(max-width:1024px){
+  .courses-grid{grid-template-columns:repeat(3,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .evolution-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-cols{grid-template-columns:1fr 1fr}
+  .num-grid{grid-template-columns:1fr}
+  .lideran-header{grid-template-columns:1fr}
+  header,.hero,.dark-banner,.stats-section,.courses-section,.teachers-section,.learning-section,.companies-section,.enablement-section,.testimonials-section,.lideran-section,.evolution-section,.faq-section,footer{padding-left:1.5rem;padding-right:1.5rem}
+}
+@media(max-width:640px){
+  .split-row,.split-imgs{grid-template-columns:1fr}
+  .globe-wrap{width:95vw;height:47.5vw}
+  .courses-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo-link" href="#">
+    <img src="data:image/png;base64,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" alt="Evolve">
+    <span>evolve</span>
+  </a>
+  <div class="header-right">
+    <a href="https://app.evolve.es/sign_in" target="_blank" class="nav-login">Iniciar sesi&oacute;n</a>
+    <button class="hamburger" aria-label="Men&uacute;">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- S0: HERO — left aligned, globe canvas -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <h1>El futuro no espera.<br>T&uacute; decides si evolucionas.</h1>
+    <p>En Evolve formamos a profesionales con criterio, contexto real y acceso directo a las empresas que est&aacute;n construyendo el ma&ntilde;ana.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+      <a href="#proyectos" class="btn-black">Ver proyectos</a>
+      <a href="#sobre-mi" class="btn-outline">Sobre m&iacute;</a>
+    </div>
+  </div>
+  <div class="globe-wrap">
+    <canvas id="globe"></canvas>
+  </div>
+</section>
+
+<!-- S1: DARK BANNER — centered text, flex row -->
+<section class="dark-banner" style="text-align:center">
+  <p style="margin:0 auto">Evolve me est&aacute; formando para construir lo que ves aqu&iacute; &mdash; <strong>SPECTRA y DOMINI</strong> son el resultado de aplicar desde el primer d&iacute;a lo que aprendo en el m&aacute;ster.</p>
+  <a href="#proyectos" class="btn-white">Ver proyectos &rarr;</a>
+</section>
+
+<!-- S2: STATS — not centered, 4 cards with icons -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/icons/people.svg" alt="">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Proyectos en producci&oacute;n</span>
+      </div>
+      <div class="stat-card">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/icons/teacher.svg" alt="">
+        <span class="stat-num">A+</span>
+        <span class="stat-label">Security Headers en ambas plataformas</span>
+      </div>
+      <div class="stat-card">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/icons/building.svg" alt="">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Flags capturados en CTFs + acceso root</span>
+      </div>
+      <div class="stat-card">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/icons/hands.svg" alt="">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Idiomas: espa&ntilde;ol, ruso e ingl&eacute;s</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S3: COURSES — not centered, 5-col card grid -->
+<section class="courses-section" id="proyectos">
+  <div class="courses-inner">
+    <div class="section-label">Proyectos en producci&oacute;n</div>
+    <h2 class="section-h">Formaci&oacute;n dise&ntilde;ada para el mercado real</h2>
+    <p class="section-sub">Descubre los proyectos orientados a empleabilidad y nuestros programas</p>
+    <!-- Kristina's projects "colados" first -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+      <a href="https://spectra.ksabitova.dev" target="_blank" class="course-card" style="aspect-ratio:16/9">
+        <div class="course-bg" style="background:#0a0a0a">
+          <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0">
+            <!-- Grid lines -->
+            <line x1="0" y1="90" x2="800" y2="90" stroke="#1a1a1a" stroke-width="1"/>
+            <line x1="0" y1="180" x2="800" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+            <line x1="0" y1="270" x2="800" y2="270" stroke="#1a1a1a" stroke-width="1"/>
+            <line x1="0" y1="360" x2="800" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+            <line x1="160" y1="0" x2="160" y2="450" stroke="#1a1a1a" stroke-width="1"/>
+            <line x1="320" y1="0" x2="320" y2="450" stroke="#1a1a1a" stroke-width="1"/>
+            <line x1="480" y1="0" x2="480" y2="450" stroke="#1a1a1a" stroke-width="1"/>
+            <line x1="640" y1="0" x2="640" y2="450" stroke="#1a1a1a" stroke-width="1"/>
+            <!-- Central glow -->
+            <ellipse cx="400" cy="225" rx="260" ry="130" fill="none" stroke="#2a4a2a" stroke-width="1" opacity="0.6"/>
+            <ellipse cx="400" cy="225" rx="160" ry="80" fill="none" stroke="#3a6a3a" stroke-width="1" opacity="0.5"/>
+            <ellipse cx="400" cy="225" rx="80" ry="40" fill="#1a3a1a" opacity="0.4"/>
+            <!-- Scan line -->
+            <line x1="60" y1="200" x2="740" y2="200" stroke="#4ade80" stroke-width="1.5" opacity="0.4"/>
+            <line x1="60" y1="250" x2="740" y2="250" stroke="#4ade80" stroke-width="1.5" opacity="0.25"/>
+            <!-- Nodes -->
+            <circle cx="220" cy="200" r="5" fill="#4ade80" opacity="0.9"/>
+            <circle cx="400" cy="180" r="7" fill="#4ade80" opacity="1"/>
+            <circle cx="580" cy="200" r="5" fill="#4ade80" opacity="0.9"/>
+            <circle cx="310" cy="270" r="4" fill="#4ade80" opacity="0.6"/>
+            <circle cx="490" cy="270" r="4" fill="#4ade80" opacity="0.6"/>
+            <!-- Connection lines -->
+            <line x1="220" y1="200" x2="400" y2="180" stroke="#4ade80" stroke-width="1" opacity="0.5"/>
+            <line x1="400" y1="180" x2="580" y2="200" stroke="#4ade80" stroke-width="1" opacity="0.5"/>
+            <line x1="310" y1="270" x2="400" y2="180" stroke="#4ade80" stroke-width="1" opacity="0.3"/>
+            <line x1="490" y1="270" x2="400" y2="180" stroke="#4ade80" stroke-width="1" opacity="0.3"/>
+            <!-- Corner labels -->
+            <text x="24" y="36" font-family="monospace" font-size="10" fill="#4ade80" opacity="0.5">SPECTRA v1.2</text>
+            <text x="24" y="52" font-family="monospace" font-size="10" fill="#4ade80" opacity="0.35">AI PIPELINE AUDIT</text>
+            <text x="640" y="36" font-family="monospace" font-size="10" fill="#4ade80" opacity="0.35">STATUS: LIVE</text>
+            <circle cx="778" cy="28" r="5" fill="#4ade80" opacity="0.9">
+              <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="course-overlay">
+          <div class="course-meta">Live &nbsp;&middot;&nbsp; AI Security &nbsp;&middot;&nbsp; spectra.ksabitova.dev</div>
+          <div class="course-title" style="font-size:1.1rem">SPECTRA &mdash; Auditor&iacute;a de pipelines de agentes IA</div>
+        </div>
+      </a>
+      <a href="https://domini.ksabitova.dev" target="_blank" class="course-card" style="aspect-ratio:16/9">
+        <div class="course-bg" style="background:#0a0a0a">
+          <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0">
+            <!-- Stars -->
+            <circle cx="80" cy="60" r="1" fill="white" opacity="0.4"/>
+            <circle cx="200" cy="30" r="1.5" fill="white" opacity="0.3"/>
+            <circle cx="350" cy="80" r="1" fill="white" opacity="0.5"/>
+            <circle cx="500" cy="40" r="1" fill="white" opacity="0.3"/>
+            <circle cx="650" cy="70" r="1.5" fill="white" opacity="0.4"/>
+            <circle cx="720" cy="30" r="1" fill="white" opacity="0.3"/>
+            <circle cx="130" cy="380" r="1" fill="white" opacity="0.3"/>
+            <circle cx="600" cy="400" r="1.5" fill="white" opacity="0.4"/>
+            <!-- Concentric rings - radar -->
+            <circle cx="400" cy="225" r="200" fill="none" stroke="#1e3a5f" stroke-width="1" opacity="0.5"/>
+            <circle cx="400" cy="225" r="140" fill="none" stroke="#1e3a5f" stroke-width="1" opacity="0.6"/>
+            <circle cx="400" cy="225" r="90" fill="none" stroke="#3b6ea5" stroke-width="1" opacity="0.5"/>
+            <circle cx="400" cy="225" r="45" fill="#0d2035" opacity="0.5"/>
+            <!-- Cross hairs -->
+            <line x1="400" y1="25" x2="400" y2="425" stroke="#1e3a5f" stroke-width="1" opacity="0.4"/>
+            <line x1="200" y1="225" x2="600" y2="225" stroke="#1e3a5f" stroke-width="1" opacity="0.4"/>
+            <!-- Sweep line -->
+            <line x1="400" y1="225" x2="400" y2="85" stroke="#60a5fa" stroke-width="2" opacity="0.7">
+              <animateTransform attributeName="transform" type="rotate" from="0 400 225" to="360 400 225" dur="4s" repeatCount="indefinite"/>
+            </line>
+            <!-- Domain nodes -->
+            <circle cx="310" cy="160" r="4" fill="#60a5fa" opacity="0.8"/>
+            <circle cx="520" cy="180" r="5" fill="#60a5fa" opacity="0.9"/>
+            <circle cx="280" cy="300" r="4" fill="#60a5fa" opacity="0.7"/>
+            <circle cx="490" cy="310" r="3" fill="#60a5fa" opacity="0.6"/>
+            <circle cx="400" cy="225" r="6" fill="#60a5fa" opacity="1"/>
+            <!-- Labels -->
+            <text x="24" y="36" font-family="monospace" font-size="10" fill="#60a5fa" opacity="0.5">DOMINI + SENTINEL</text>
+            <text x="24" y="52" font-family="monospace" font-size="10" fill="#60a5fa" opacity="0.35">PASSIVE RECON · OSINT</text>
+            <text x="640" y="36" font-family="monospace" font-size="10" fill="#60a5fa" opacity="0.35">STATUS: LIVE</text>
+            <circle cx="778" cy="28" r="5" fill="#60a5fa" opacity="0.9">
+              <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="course-overlay">
+          <div class="course-meta">Live &nbsp;&middot;&nbsp; OSINT &nbsp;&middot;&nbsp; domini.ksabitova.dev</div>
+          <div class="course-title" style="font-size:1.1rem">DOMINI + SENTINEL &mdash; Suite de reconocimiento pasivo</div>
+        </div>
+      </a>
+    </div>
+    <!-- Original Evolve masters below -->
+    <div class="courses-grid">
+      <a href="https://evolve.es/formacion/masters/master-ciberseguridad-inteligencia-artificial-online/" target="_blank" class="course-card">
+  <div class="course-bg" style="background-image:url('https://evolve.es/wp-content/themes/evolve/assets/images/courses/profesor-master-ciberseguridad-online.avif')"></div>
+  <div class="course-overlay">
+    <div class="course-meta">480 Horas &nbsp;·&nbsp; 100% Online</div>
+    <div class="course-title">Máster en Ciberseguridad & IA</div>
+  </div>
+</a>
+<a href="https://evolve.es/formacion/masters/master-data-science-y-desarrollo-inteligencia-artificial-online/" target="_blank" class="course-card">
+  <div class="course-bg" style="background-image:url('https://evolve.es/wp-content/themes/evolve/assets/images/courses/profesor-master-data-science-bigdata-online.avif')"></div>
+  <div class="course-overlay">
+    <div class="course-meta">480 Horas &nbsp;·&nbsp; 100% Online</div>
+    <div class="course-title">Máster en Data Science & Desarrollo de IA</div>
+  </div>
+</a>
+<a href="https://evolve.es/formacion/masters/master-devops-cloud-inteligencia-artificial-online/" target="_blank" class="course-card">
+  <div class="course-bg" style="background-image:url('https://evolve.es/wp-content/themes/evolve/assets/images/courses/profesor-master-devops-ia-online.avif')"></div>
+  <div class="course-overlay">
+    <div class="course-meta">480 Horas &nbsp;·&nbsp; 100% Online</div>
+    <div class="course-title">Máster en DevOps & Cloud</div>
+  </div>
+</a>
+<a href="https://evolve.es/formacion/masters/master-product-engineering-inteligencia-artificial-online/" target="_blank" class="course-card">
+  <div class="course-bg" style="background-image:url('https://evolve.es/wp-content/themes/evolve/assets/images/courses/profesor-master-product-engineering-ia-online.avif')"></div>
+  <div class="course-overlay">
+    <div class="course-meta">480 Horas &nbsp;·&nbsp; 100% Online</div>
+    <div class="course-title">Máster en Product Engineering AI</div>
+  </div>
+</a>
+<a href="https://evolve.es/formacion/masters/master-people-analytics-inteligencia-artificial-online/" target="_blank" class="course-card">
+  <div class="course-bg" style="background-image:url('https://evolve.es/wp-content/themes/evolve/assets/images/courses/profesor-master-people-analytics-ia-online.avif')"></div>
+  <div class="course-overlay">
+    <div class="course-meta">480 Horas &nbsp;·&nbsp; 100% Online</div>
+    <div class="course-title">Máster en People & Analytics IA</div>
+  </div>
+</a>
+    </div>
+  </div>
+</section>
+
+<!-- S3b: SOBRE MI — anchor target, before teachers -->
+<section id="sobre-mi" style="padding:5rem 3rem;background:var(--white);border-top:1px solid var(--border)">
+  <div style="max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center">
+    <div>
+      <div class="section-label">Sobre m&iacute;</div>
+      <h2 class="section-h">De imagen m&eacute;dica<br>a seguridad ofensiva</h2>
+      <p style="font-size:0.97rem;color:var(--muted);line-height:1.75;margin-bottom:1rem">Empec&eacute; mi carrera en imagen diagn&oacute;stica y planificaci&oacute;n quir&uacute;rgica oncol&oacute;gica &mdash; creando modelos 3D para cirug&iacute;as de alta precisi&oacute;n en Cella Medical Solutions.</p>
+      <p style="font-size:0.97rem;color:var(--muted);line-height:1.75;margin-bottom:1rem">Esa disciplina de mirar donde nadie mira es la misma que aplico ahora en ciberseguridad y sistemas de IA. No vine al sector por el camino convencional &mdash; vine con una forma de pensar que el sector necesita.</p>
+      <p style="font-size:0.97rem;color:var(--muted);line-height:1.75;margin-bottom:2rem">Actualmente curso el M&aacute;ster en Ciberseguridad e IA en Evolve Academy con foco en Red Team, y DAW en DIGITECH FP.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="https://es.linkedin.com/in/kristina-solomatova-sabitova-8207a4163" target="_blank" class="btn-black">LinkedIn</a>
+        <a href="mailto:sabitova.solomatova@gmail.com" class="btn-outline">Contactar</a>
+      </div>
+    </div>
+    <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--gray);display:flex;align-items:center;justify-content:center">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+        <rect width="400" height="500" fill="#f5f5f3"/>
+        <!-- Medical cross fading to shield -->
+        <g opacity="0.12">
+          <rect x="170" y="100" width="60" height="180" rx="8" fill="#0a0a0a"/>
+          <rect x="110" y="160" width="180" height="60" rx="8" fill="#0a0a0a"/>
+        </g>
+        <!-- Shield -->
+        <path d="M200 200 L280 230 L280 300 Q280 360 200 390 Q120 360 120 300 L120 230 Z" fill="none" stroke="#0a0a0a" stroke-width="2" opacity="0.18"/>
+        <!-- Lock icon inside -->
+        <rect x="182" y="295" width="36" height="28" rx="4" fill="none" stroke="#0a0a0a" stroke-width="2" opacity="0.2"/>
+        <path d="M188 295 Q188 278 200 278 Q212 278 212 295" fill="none" stroke="#0a0a0a" stroke-width="2" opacity="0.2"/>
+        <circle cx="200" cy="309" r="4" fill="#0a0a0a" opacity="0.2"/>
+        <!-- Binary rain -->
+        <text x="60" y="140" font-family="monospace" font-size="11" fill="#0a0a0a" opacity="0.07">01101001</text>
+        <text x="240" y="160" font-family="monospace" font-size="11" fill="#0a0a0a" opacity="0.07">10110100</text>
+        <text x="80" y="420" font-family="monospace" font-size="11" fill="#0a0a0a" opacity="0.07">11001010</text>
+        <text x="260" y="440" font-family="monospace" font-size="11" fill="#0a0a0a" opacity="0.07">01011101</text>
+        <!-- Name at bottom -->
+        <text x="200" y="470" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="600" fill="#0a0a0a" opacity="0.4" text-anchor="middle">Kristina Sabitova</text>
+        <text x="200" y="488" font-family="'Plus Jakarta Sans',sans-serif" font-size="10" fill="#6b6b6b" opacity="0.6" text-anchor="middle">Cybersecurity · Red Team · AI</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- S4: TEACHERS — not centered, horizontal swiper -->
+<section class="teachers-section" id="sobre">
+  <div class="teachers-inner">
+    <div class="section-label">Profesionales en activo</div>
+    <h2 class="section-h">Aprendes de personas que toman decisiones reales en<br>empresas reales</h2>
+    <p class="section-sub" style="margin-bottom:2rem">No de profesores que dejaron la industria hace a&ntilde;os</p>
+    <div class="swiper-wrapper" id="swiper1">
+      <div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/javier-pastor-profesor-data-science-inteligencia-artificial.avif" alt="Javier Pastor">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/sanmiguel.png" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Javier Pastor</div>
+  <div class="teacher-role">Data & IA</div>
+</div>
+<div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/jorge-diez-ortega-profesor-inteligencia-artificial-salud.avif" alt="Jorge Diez">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/minsait-black.webp" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Jorge Diez</div>
+  <div class="teacher-role">Senior Data & Analytics Consultant</div>
+</div>
+<div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/luis-carlos-prieto-profesor-data-science-inteligencia-artificial.avif" alt="Luis Carlos Prieto">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/dark/indra.png" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Luis Carlos Prieto</div>
+  <div class="teacher-role">Head of AI</div>
+</div>
+<div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/tomas-arteaga-profesor-data-science-inteligencia-artificial.avif" alt="Tomás Arteaga">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/dark/deutsche-bank.svg" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Tomás Arteaga</div>
+  <div class="teacher-role">Director Data Science & Analytics</div>
+</div>
+<div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/paula-guijarro-profesora-data-science-inteligenica-artificial.avif" alt="Paula Guijarro">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/telefonica-black.svg" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Paula Guijarro</div>
+  <div class="teacher-role">AI & BigData Consultant</div>
+</div>
+<div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/agustin-picazo-burdalo-profesor-ciberseguridad.avif" alt="Agustín Picazo Burdalo">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/dark/secra.png" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Agustín Picazo Burdalo</div>
+  <div class="teacher-role">CTO & Co-Founder</div>
+</div>
+<div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/carlos-gomez-pintado-profesor-ciberseguridad.avif" alt="Carlos Gómez Pintado">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/dark/cyberxia.png" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Carlos Gómez Pintado</div>
+  <div class="teacher-role">Cofundador & CISO</div>
+</div>
+<div class="teacher-card swiper-slide">
+  <div class="teacher-img">
+    <img src="https://evolve.es/wp-content/themes/evolve/assets/images/teachers/carlos-castillo-san-juan-profesor-ciberseguridad.avif" alt="Carlos Castillo San Juan">
+    <div class="company-badge">
+      <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/dark/cyberxia.png" alt="">
+    </div>
+  </div>
+  <div class="teacher-name">Carlos Castillo San Juan</div>
+  <div class="teacher-role">Red Team Operator</div>
+</div>
+      <!-- Kristina as first card -->
+    </div>
+    <div class="swiper-nav">
+      <button class="swiper-btn" onclick="scroll1(-1)">&#8592;</button>
+      <button class="swiper-btn" onclick="scroll1(1)">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- S5: LEARNING (2 split rows) — not centered -->
+<section class="learning-section">
+  <div class="learning-inner">
+    <!-- Row 1: text left, images right -->
+    <div class="split-row">
+      <div class="split-text">
+        <div class="section-label">Formaci&oacute;n pr&aacute;ctica</div>
+        <h2 class="section-h">Aprender haciendo,<br>no memorizando</h2>
+        <p>Proyectos reales, <strong>herramientas actuales</strong> y contexto de empresa desde el primer d&iacute;a.</p>
+      </div>
+      <div class="split-imgs">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/section/prompt.png" alt="Prompt">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/section/generativa.png" alt="IA Generativa">
+      </div>
+    </div>
+    <!-- Row 2: images left, text right -->
+    <div class="split-row">
+      <div class="split-imgs">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/section/leroy-merlin.png" alt="Leroy Merlin">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/section/vacante.png" alt="Vacante">
+      </div>
+      <div class="split-text">
+        <div class="section-label">Alta empleabilidad</div>
+        <h2 class="section-h">Las empresas contratan<br>talento preparado</h2>
+        <p>Formamos talento <strong>alineado con las necesidades reales</strong> del mercado y preparado para incorporarse desde el primer d&iacute;a.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6: COMPANIES — CENTERED marquee -->
+<section class="companies-section">
+  <div class="companies-inner">
+    <h4 class="companies-label">Empresas que ya conf&iacute;an en Evolve</h4>
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/deloitte.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/microsoft.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/santander.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/decathlon.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/nttdata.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/telefonica.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/vodafone.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/indra.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/cabify.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/l-oreal.svg" alt="">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/deloitte.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/microsoft.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/santander.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/decathlon.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/nttdata.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/telefonica.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/vodafone.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/indra.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/cabify.svg" alt="">
+<img src="https://evolve.es/wp-content/themes/evolve/assets/images/companies/l-oreal.svg" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S7: TECH ENABLEMENT — not centered, numbered cards -->
+<section class="enablement-section" id="enablement">
+  <div class="enablement-inner">
+    <div class="enablement-top">
+      <div class="section-label">Tech Enablement</div>
+      <h2 class="section-h" style="max-width:640px">Entiendo tu stack.<br>Contribuyo donde hay gaps reales.</h2>
+      <p class="section-sub">Entiendo qu&eacute; necesita tu equipo y contribuyo exactamente donde hay gaps. Sin cat&aacute;logo. Con soluciones reales.</p>
+      <a href="mailto:sabitova.solomatova@gmail.com" class="btn-black">Hablar con Kristina</a>
+    </div>
+    <div class="num-grid">
+      <div class="num-card">
+        <span class="num-idx">01</span>
+        <h4>SPECTRA &mdash; AI Pipeline Security</h4>
+        <p>Auditor&iacute;a de pipelines de agentes LLM. Detecta prompt injection, jailbreaks y vulnerabilidades estructurales. Agente FastAPI en Railway.</p>
+        <a href="https://spectra.ksabitova.dev" target="_blank">Ver proyecto &rarr;</a>
+      </div>
+      <div class="num-card">
+        <span class="num-idx">02</span>
+        <h4>DOMINI + SENTINEL &mdash; OSINT</h4>
+        <p>Suite pasiva de reconocimiento: DNS, Whois, subdominios, puertos con masscan/nmap, headers HTTP. A+ en securityheaders.com.</p>
+        <a href="https://domini.ksabitova.dev" target="_blank">Ver proyecto &rarr;</a>
+      </div>
+      <div class="num-card">
+        <span class="num-idx">03</span>
+        <h4>Red Team &mdash; Pr&aacute;ctica ofensiva</h4>
+        <p>VulnHub RickdiculouslyEasy &mdash; 7 flags + root. HTB Responder &mdash; NTLM hash capture + cracking con John the Ripper.</p>
+        <a href="https://github.com/KristinaSabitova" target="_blank">Ver en GitHub &rarr;</a>
+      </div>
+      <div class="num-card">
+        <span class="num-idx">04</span>
+        <h4>Information Exhaust &mdash; Investigaci&oacute;n</h4>
+        <p>Fuga estructural involuntaria entre capas de sistemas IA. Vector sin tooling unificado. Territorio que estoy explorando activamente.</p>
+        <a href="https://github.com/KristinaSabitova" target="_blank">M&aacute;s informaci&oacute;n &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S8: TESTIMONIALS — not centered, video slider with quotes -->
+<section class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="section-label">В деталях вся суть</div>
+    <h2 class="section-h">Quienes ya est&aacute;n liderando el cambio.</h2>
+    <p class="section-sub"><strong>Referentes en tecnolog&iacute;a, innovaci&oacute;n y liderazgo</strong> que ya est&aacute;n construyendo el futuro con Evolve</p>
+    <div class="testimonials-list" id="testimonialsList">
+      <div class="testimonial-item">
+  <div class="testimonial-video-wrap" onclick="playVideo(this)">
+    <video muted loop playsinline poster="https://evolve.es/wp-content/themes/evolve/assets/images/poster/ricardo-zafra-head-of-marketing-pernod-ricard.avif">
+      <source src="https://evolve.es/wp-content/uploads/1aGI7OPkIhJlbTlA3cxY7KKABU.mp4" type="video/mp4">
+    </video>
+    <div class="testimonial-play">
+      <svg width="14" height="16" viewBox="0 0 14 16" fill="#fff"><path d="M0 0l14 8-14 8V0z"/></svg>
+    </div>
+    <div class="testimonial-quote-overlay">
+      <p class="t-quote">"El máster no me ha dado más herramientas… me ha dado nuevas formas de trabajar."</p>
+      <div class="t-author"><strong>Ricardo Zafra</strong><br>Head of Mkt Pernod Ricard</div>
+    </div>
+  </div>
+</div>
+<div class="testimonial-item">
+  <div class="testimonial-video-wrap" onclick="playVideo(this)">
+    <video muted loop playsinline poster="https://evolve.es/wp-content/themes/evolve/assets/images/poster/jaime-del-valle-head-geo-loreal-evolve.avif">
+      <source src="https://evolve.es/wp-content/uploads/3rqMNCEjN5vr8UIdVjjvxNoo0.mp4" type="video/mp4">
+    </video>
+    <div class="testimonial-play">
+      <svg width="14" height="16" viewBox="0 0 14 16" fill="#fff"><path d="M0 0l14 8-14 8V0z"/></svg>
+    </div>
+    <div class="testimonial-quote-overlay">
+      <p class="t-quote">"Cuando empiezas a entender cómo escalar tus ideas con IA… se te abren 300 puertas más."</p>
+      <div class="t-author"><strong>Jaime del Valle</strong><br>Global Head of GEO L'Oréal</div>
+    </div>
+  </div>
+</div>
+<div class="testimonial-item">
+  <div class="testimonial-video-wrap" onclick="playVideo(this)">
+    <video muted loop playsinline poster="https://evolve.es/wp-content/themes/evolve/assets/images/poster/ester-garcia-ceo-waad.avif">
+      <source src="https://evolve.es/wp-content/uploads/ester-garcia.mp4" type="video/mp4">
+    </video>
+    <div class="testimonial-play">
+      <svg width="14" height="16" viewBox="0 0 14 16" fill="#fff"><path d="M0 0l14 8-14 8V0z"/></svg>
+    </div>
+    <div class="testimonial-quote-overlay">
+      <p class="t-quote">"El conocimiento siempre ha existido. Lo diferencial es saber aplicarlo."</p>
+      <div class="t-author"><strong>Ester Garcia</strong><br>CEO & Founder en WAAD</div>
+    </div>
+  </div>
+</div>
+<div class="testimonial-item">
+  <div class="testimonial-video-wrap" onclick="playVideo(this)">
+    <video muted loop playsinline poster="https://evolve.es/wp-content/themes/evolve/assets/images/poster/ines-fonseca-directora-european-whisky-hub.avif">
+      <source src="https://evolve.es/wp-content/uploads/ines-fonseca.mp4" type="video/mp4">
+    </video>
+    <div class="testimonial-play">
+      <svg width="14" height="16" viewBox="0 0 14 16" fill="#fff"><path d="M0 0l14 8-14 8V0z"/></svg>
+    </div>
+    <div class="testimonial-quote-overlay">
+      <p class="t-quote">"La clave estará en entender bien la complementariedad de los algorítmos y la parte humana."</p>
+      <div class="t-author"><strong>Inés Fonseca</strong><br>Directora European Whisky Hub</div>
+    </div>
+  </div>
+</div>
+<div class="testimonial-item">
+  <div class="testimonial-video-wrap" onclick="playVideo(this)">
+    <video muted loop playsinline poster="https://evolve.es/wp-content/themes/evolve/assets/images/poster/javier-mallo-cio-carrefour.avif">
+      <source src="https://evolve.es/wp-content/uploads/javier-mallo.mp4" type="video/mp4">
+    </video>
+    <div class="testimonial-play">
+      <svg width="14" height="16" viewBox="0 0 14 16" fill="#fff"><path d="M0 0l14 8-14 8V0z"/></svg>
+    </div>
+    <div class="testimonial-quote-overlay">
+      <p class="t-quote">"El dato tiene que ser anonimizado y tratarse como tiene que tratarse"</p>
+      <div class="t-author"><strong>Javier Mallo</strong><br>CIO Carrefour España</div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- S9: EVOLUTION — left heading, 3-col grid with real images -->
+<section class="evolution-section">
+  <div class="evolution-inner">
+    <div class="section-label">Formaci&oacute;n pr&aacute;ctica</div>
+    <h2 class="section-h" style="max-width:500px">As&iacute; evoluciona el talento en Evolve</h2>
+    <div class="evolution-grid">
+      <div class="evolution-item">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/evolution/partimos.avif" alt="Partimos">
+        <h3>Partimos de tu realidad profesional</h3>
+        <p>Analizamos tu punto de partida y hacia d&oacute;nde quieres evolucionar.</p>
+      </div>
+      <div class="evolution-item">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/evolution/formamos.avif" alt="Formamos">
+        <h3>Te formamos en contextos reales de negocio</h3>
+        <p>Casos reales y decisiones como las que se toman en empresa.</p>
+      </div>
+      <div class="evolution-item">
+        <img src="https://evolve.es/wp-content/themes/evolve/assets/images/evolution/impulsamos.png" alt="Impulsamos">
+        <h3>Impulsamos tu evoluci&oacute;n profesional continua</h3>
+        <p>Crecimiento dentro de tu empresa, cambio de rol o nuevas oportunidades.</p>
+      </div>
+    </div>
+    <div style="margin-top:2rem">
+      <a href="https://evolve.es/nuestro-sistema/" target="_blank" class="btn-black">Descubre nuestro sistema</a>
+    </div>
+  </div>
+</section>
+
+<!-- S10: FAQ — left heading -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-label">&iquest;Tienes alguna duda?</div>
+    <h2 class="section-h">Preguntas frecuentes<br>sobre Evolve</h2>
+    <div style="margin-top:2.5rem">
+      <div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿Qué es Evolve?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">Evolve es el ecosistema donde el talento evoluciona, se conecta con oportunidades reales y se transforma en impacto para personas y empresas.</div>
+</div>
+<div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿La formación es online o presencial?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">Nuestros másteres se imparten 100% online en directo, para que puedas acceder desde cualquier lugar.</div>
+</div>
+<div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿Qué tipo de formación ofrecéis a empresas?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">Diseñamos programas de upskilling y reskilling adaptados a la realidad de cada empresa: IA aplicada, arquitectura Cloud, Data Engineering, Ciberseguridad operativa.</div>
+</div>
+<div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿Cómo funciona el proceso para empresas?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">Empezamos con un diagnóstico de necesidades. Diseñamos el programa sobre vuestro stack. Acompañamos la implementación con seguimiento y métricas de impacto.</div>
+</div>
+<div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿Necesito experiencia previa para inscribirme?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">No es obligatorio tener experiencia previa. Evaluamos tu punto de partida profesional y te ofrecemos formación práctica.</div>
+</div>
+<div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿En qué consiste la metodología de Evolve?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">Nuestra formación está orientada a la práctica real: casos de negocio, laboratorios y toma de decisiones reales.</div>
+</div>
+<div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿Trabajáis con certificaciones oficiales?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">Sí. Nuestros programas integran certificaciones de Microsoft, AWS y Google, entre otras.</div>
+</div>
+<div class="faq-item">
+  <button class="faq-btn" onclick="toggleFaq(this)">
+    <span>¿Recibo un certificado al finalizar?</span>
+    <span class="faq-plus">+</span>
+  </button>
+  <div class="faq-answer">Sí, al completar con éxito tu programa recibirás un certificado oficial de Evolve.</div>
+</div>
+    </div>
+    <div class="faq-more">
+      <a href="mailto:sabitova.solomatova@gmail.com" class="btn-outline">Tengo m&aacute;s dudas</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-cols">
+    <div class="footer-col">
+      <h4>Nuestros m&aacute;steres</h4>
+      <a href="https://evolve.es/formacion/masters/master-ciberseguridad-inteligencia-artificial-online/" target="_blank">M&aacute;ster en Ciberseguridad &amp; IA</a>
+      <a href="https://evolve.es/formacion/masters/master-data-science-y-desarrollo-inteligencia-artificial-online/" target="_blank">M&aacute;ster en Data Science &amp; IA</a>
+      <a href="https://evolve.es/formacion/masters/master-devops-cloud-inteligencia-artificial-online/" target="_blank">M&aacute;ster en DevOps Cloud &amp; IA</a>
+      <a href="https://evolve.es/formacion/masters/master-people-analytics-inteligencia-artificial-online/" target="_blank">M&aacute;ster en People Analytics &amp; IA</a>
+      <a href="https://evolve.es/formacion/masters/master-product-engineering-inteligencia-artificial-online/" target="_blank">M&aacute;ster en Product Engineering &amp; IA</a>
+    </div>
+    <div class="footer-col">
+      <h4>Empresas</h4>
+      <a href="#">Tech Enablement</a>
+      <a href="#">Talent Placement</a>
+    </div>
+    <div class="footer-col">
+      <h4>Talento</h4>
+      <a href="#">Comunidad</a>
+      <a href="#">Nuestro sistema</a>
+    </div>
+    <div class="footer-col">
+      <h4>Sobre nosotros</h4>
+      <a href="https://es.linkedin.com/in/kristina-solomatova-sabitova-8207a4163" target="_blank">LinkedIn</a>
+      <a href="https://github.com/KristinaSabitova" target="_blank">GitHub</a>
+      <a href="mailto:sabitova.solomatova@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">
+      <img src="data:image/png;base64,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" alt="Evolve">
+      <span>Kristina Sabitova</span>
+    </div>
+    <div class="footer-social">
+      <a href="https://es.linkedin.com/in/kristina-solomatova-sabitova-8207a4163" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
+      </a>
+      <a href="https://github.com/KristinaSabitova" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.09.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.773.003 1.55.105 2.276.307 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      </a>
+    </div>
+    <div class="footer-legal">
+      <span>&copy; Evolve Copyright 2026</span>
+      <span>В деталях вся суть</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// FAQ
+function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
+
+// Swiper scroll
+function scroll1(dir) {
+  document.getElementById('swiper1').scrollBy({left: dir * 250, behavior: 'smooth'});
+}
+
+// Video hover play
+document.querySelectorAll('.testimonial-video-wrap').forEach(function(wrap) {
+  var video = wrap.querySelector('video');
+  wrap.addEventListener('mouseenter', function() { video.play(); });
+  wrap.addEventListener('mouseleave', function() { video.pause(); video.currentTime=0; });
+  wrap.addEventListener('click', function() { if(video.paused) video.play(); else video.pause(); });
+});
+
+// GLOBE CANVAS — Fibonacci sphere + click burst effect like Evolve
+(function() {
+  var canvas = document.getElementById('globe');
+  if (!canvas) return;
+  var dpr = Math.min(window.devicePixelRatio||1, 2);
+
+  function resize() {
+    var wrap = canvas.parentElement;
+    var w = wrap.offsetWidth;
+    // Canvas is twice the height of the wrapper (we show only bottom half)
+    canvas.style.width = w+'px';
+    canvas.style.height = (w)+'px'; // full sphere height = full width
+    canvas.width = w*dpr;
+    canvas.height = w*dpr;
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  var ctx = canvas.getContext('2d');
+  var frame = 0;
+  var burstProgress = 0;
+  var burstX = 0, burstY = 0;
+
+  // Fibonacci sphere — 900 dots, varying sizes
+  var N = 900, PHI = Math.PI*(1+Math.sqrt(5));
+  var dots = [];
+  for (var i = 0; i < N; i++) {
+    var theta = Math.acos(1-2*(i+0.5)/N);
+    var phi = PHI*i;
+    var r = Math.random()<0.04 ? 4+Math.random()*4
+           : Math.random()<0.12 ? 2+Math.random()*2
+           : 0.6+Math.random()*1.2;
+    dots.push({
+      x: Math.sin(theta)*Math.cos(phi),
+      y: Math.cos(theta),
+      z: Math.sin(theta)*Math.sin(phi),
+      r: r,
+      bx: (Math.random()-0.5)*2,
+      by: (Math.random()-0.5)*2,
+      bz: (Math.random()-0.5)*2,
+      bd: 0.3 + Math.random()*0.7
+    });
+  }
+
+  canvas.addEventListener('click', function(e) {
+    var rect = canvas.getBoundingClientRect();
+    burstX = (e.clientX - rect.left) / rect.width;
+    burstY = (e.clientY - rect.top) / rect.height;
+    burstProgress = 1;
+  });
+
+  function draw() {
+    var w = canvas.width/dpr, h = canvas.height/dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+    // Center the sphere in the canvas; the wrapper clips to bottom half
+    var R = w*0.43, cx = w*0.5, cy = h*0.5;
+    var rotY = frame*0.003, cosR = Math.cos(rotY), sinR = Math.sin(rotY);
+
+    var burst = 0;
+    if (burstProgress > 0) {
+      burst = Math.sin(burstProgress * Math.PI) * 0.55;
+      burstProgress -= 0.018;
+      if (burstProgress < 0) burstProgress = 0;
+    }
+
+    var proj = dots.map(function(d) {
+      var bx = d.x + d.bx * burst * d.bd;
+      var by = d.y + d.by * burst * d.bd;
+      var bz = d.z + d.bz * burst * d.bd;
+      var rx = bx*cosR - bz*sinR, rz = bx*sinR + bz*cosR;
+      var scale = 1+rz/(R*4.5), depth = (rz+R)/(R*2);
+      return [cx+rx*R*scale, cy-by*R*scale, depth, d.r*scale];
+    });
+    proj.sort(function(a,b){return a[2]-b[2];});
+    proj.forEach(function(p) {
+      if (p[2]<0.01) return;
+      var alpha = Math.pow(Math.max(0,p[2]),0.8)*0.9;
+      ctx.beginPath(); ctx.arc(p[0],p[1],Math.max(0.1,p[3]),0,Math.PI*2);
+      ctx.fillStyle='rgba(10,10,10,'+Math.min(1,alpha).toFixed(3)+')'; ctx.fill();
+    });
+    frame++; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
