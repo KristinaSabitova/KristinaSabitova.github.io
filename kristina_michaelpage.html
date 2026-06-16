@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kristina Sabitova | Michael Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mp-blue: #124395;
+      --mp-blue-dark: #002a54;
+      --mp-blue-light: #f5f8fb;
+      --mp-green: #0d874c;
+      --mp-text: #3f4048;
+      --mp-text-dark: #333;
+      --mp-border: #ddd;
+      --mp-bg: #f5f5f5;
+      --mp-white: #ffffff;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--mp-text);
+      background: var(--mp-white);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* ── PHISHING BANNER ── */
+    .phishing-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--mp-border);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: var(--mp-text);
+    }
+    .phishing-bar a { color: var(--mp-blue); font-weight: 700; text-decoration: none; }
+    .phishing-bar a:hover { text-decoration: underline; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--mp-white);
+      border-bottom: 1px solid var(--mp-border);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 64px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo-link img {
+      height: 36px;
+      width: auto;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Candidate / Company toggle tabs */
+    .role-tabs {
+      display: flex;
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+      border: 1px solid var(--mp-border);
+      border-bottom: none;
+      margin-bottom: -1px;
+    }
+    .role-tab {
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .role-tab.active {
+      background: var(--mp-blue);
+      color: white;
+    }
+    .role-tab.inactive {
+      background: var(--mp-blue-light);
+      color: var(--mp-blue-dark);
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: 16px;
+    }
+    .header-icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--mp-text);
+      padding: 6px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+    }
+    .header-icon-btn:hover { background: var(--mp-bg); }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      position: relative;
+      background-image: url('https://www.michaelpage.es/sites/michaelpage.es/files/styles/webp/public/2024-06/CECS-102_MP_Website_Tech_1600x430.jpg.webp');
+      background-size: cover;
+      background-position: center top;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 42, 84, 0.45);
+    }
+    .hero-card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.94);
+      padding: 28px 32px;
+      max-width: 420px;
+      margin: 40px 60px;
+      border-radius: 4px;
+    }
+    .hero-card .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--mp-blue);
+      margin-bottom: 8px;
+    }
+    .hero-card h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mp-blue-dark);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .hero-card .subtitle {
+      font-size: 14px;
+      color: var(--mp-text);
+      margin-bottom: 4px;
+    }
+    .hero-card .motto {
+      font-size: 12px;
+      color: #777;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .hero-card .btn-mp {
+      display: inline-block;
+      background: var(--mp-blue);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-right: 10px;
+      transition: background .2s;
+    }
+    .hero-card .btn-mp:hover { background: var(--mp-blue-dark); }
+    .hero-card .btn-mp.outline {
+      background: transparent;
+      color: var(--mp-blue);
+      border: 1.5px solid var(--mp-blue);
+    }
+    .hero-card .btn-mp.outline:hover { background: var(--mp-blue-light); }
+
+    /* ── SEARCH BAR ── */
+    .search-wrap {
+      background: var(--mp-white);
+      border-bottom: 1px solid var(--mp-border);
+      padding: 20px 24px;
+    }
+    .search-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .search-form {
+      display: flex;
+      gap: 0;
+      border: 1.5px solid var(--mp-border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: white;
+    }
+    .search-field {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 10px;
+      border-right: 1px solid var(--mp-border);
+    }
+    .search-field input {
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--mp-text-dark);
+      width: 100%;
+      padding: 14px 0;
+      background: transparent;
+    }
+    .search-field input::placeholder { color: #999; }
+    .search-field svg { color: #999; flex-shrink: 0; }
+    .search-btn-mp {
+      background: var(--mp-blue);
+      color: white;
+      border: none;
+      padding: 0 36px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .search-btn-mp:hover { background: var(--mp-blue-dark); }
+
+    .search-filters {
+      display: flex;
+      gap: 24px;
+      margin-top: 14px;
+    }
+    .filter-btn {
+      background: none;
+      border: none;
+      font-size: 13px;
+      color: var(--mp-blue);
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      font-weight: 500;
+    }
+    .filter-btn:hover { text-decoration: underline; }
+
+    /* ── HOW CAN WE HELP ── */
+    .help-section {
+      background: linear-gradient(160deg, #e8f0fb 0%, #cdddf7 50%, #b3cbf0 100%);
+      padding: 50px 24px;
+      text-align: center;
+    }
+    .help-inner { max-width: 700px; margin: 0 auto; }
+    .help-section h2 {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--mp-blue-dark);
+      margin-bottom: 28px;
+    }
+    .help-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .help-btn {
+      background: var(--mp-blue);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .2s;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .help-btn:hover { background: var(--mp-blue-dark); }
+
+    /* ── MAIN ── */
+    .main-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 44px 24px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 44px;
+      align-items: start;
+    }
+
+    /* Section headers */
+    .sec-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--mp-blue-dark);
+      margin-bottom: 20px;
+    }
+    .sec-link {
+      font-size: 14px;
+      color: var(--mp-blue);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sec-link:hover { text-decoration: underline; }
+    .sec-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    /* JOB CARDS → Profile sections */
+    .profile-card {
+      border: 1px solid var(--mp-border);
+      border-radius: 6px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      transition: box-shadow .18s, border-color .18s;
+      background: white;
+    }
+    .profile-card:hover {
+      box-shadow: 0 3px 14px rgba(18,67,149,.12);
+      border-color: var(--mp-blue);
+    }
+    .card-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: var(--mp-blue);
+      border: 1px solid var(--mp-blue);
+      border-radius: 3px;
+      padding: 2px 8px;
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--mp-blue-dark);
+      margin-bottom: 4px;
+    }
+    .card-company {
+      font-size: 13px;
+      color: var(--mp-blue);
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .card-meta {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .card-meta svg { color: #aaa; }
+    .card-body {
+      font-size: 13.5px;
+      color: var(--mp-text);
+      line-height: 1.65;
+    }
+    .card-footer {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--mp-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-apply {
+      background: var(--mp-blue);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-apply:hover { background: var(--mp-blue-dark); }
+    .btn-save {
+      background: none;
+      border: 1.5px solid var(--mp-border);
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      color: var(--mp-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .btn-save:hover { border-color: var(--mp-blue); color: var(--mp-blue); }
+
+    /* PROJECTS grid */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .proj-card {
+      border: 1px solid var(--mp-border);
+      border-radius: 6px;
+      padding: 18px;
+      background: white;
+      transition: all .18s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .proj-card:hover {
+      border-color: var(--mp-blue);
+      box-shadow: 0 3px 14px rgba(18,67,149,.1);
+    }
+    .proj-name { font-size: 15px; font-weight: 700; color: var(--mp-blue-dark); margin-bottom: 6px; }
+    .proj-desc { font-size: 12.5px; color: var(--mp-text); line-height: 1.55; margin-bottom: 10px; }
+    .proj-url { font-size: 11.5px; color: var(--mp-blue); font-weight: 500; }
+
+    .green-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e8f7ee;
+      color: var(--mp-green);
+      border-radius: 12px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .green-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mp-green); }
+
+    /* ── SIDEBAR ── */
+    .sidebar-box {
+      border: 1px solid var(--mp-border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      background: white;
+    }
+    .sidebar-box-head {
+      background: var(--mp-blue-dark);
+      color: white;
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+    .sidebar-box-head.light {
+      background: var(--mp-blue-light);
+      color: var(--mp-blue-dark);
+      border-bottom: 1px solid var(--mp-border);
+    }
+    .sidebar-box-body { padding: 16px 18px; }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      color: var(--mp-text);
+    }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row svg { color: var(--mp-blue); flex-shrink: 0; }
+    .contact-row a { color: var(--mp-blue); text-decoration: none; }
+    .contact-row a:hover { text-decoration: underline; }
+
+    .skill-item { padding: 9px 0; border-bottom: 1px solid #f0f0f0; }
+    .skill-item:last-child { border-bottom: none; }
+    .skill-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--mp-text-dark);
+      margin-bottom: 5px;
+    }
+    .skill-pct { color: var(--mp-blue); font-weight: 600; font-size: 12px; }
+    .skill-bar-bg { height: 3px; background: #e8e8e8; border-radius: 2px; }
+    .skill-bar { height: 3px; background: var(--mp-blue); border-radius: 2px; }
+
+    .lang-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+    }
+    .lang-row:last-child { border-bottom: none; }
+    .lang-dots { display: flex; gap: 4px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #ddd; }
+    .dot.on { background: var(--mp-blue); }
+
+    .logro-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 9px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 12.5px;
+      color: var(--mp-text);
+    }
+    .logro-row:last-child { border-bottom: none; }
+    .logro-row svg { color: var(--mp-green); flex-shrink: 0; margin-top: 1px; }
+
+    /* ── TE INTERESA section ── */
+    .interesa-section {
+      background: var(--mp-bg);
+      border-top: 1px solid var(--mp-border);
+      padding: 44px 24px;
+    }
+    .interesa-inner { max-width: 1200px; margin: 0 auto; }
+    .interesa-inner .sec-header { margin-bottom: 24px; }
+
+    .interesa-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .interesa-card {
+      background: white;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--mp-border);
+      transition: box-shadow .18s;
+      cursor: pointer;
+    }
+    .interesa-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.1); }
+    .interesa-card-img {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+    }
+    .interesa-card-body { padding: 16px; }
+    .interesa-card-body .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--mp-blue);
+      margin-bottom: 6px;
+    }
+    .interesa-card-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mp-blue-dark);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .interesa-card-body .link {
+      font-size: 13px;
+      color: var(--mp-blue);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--mp-blue-dark);
+      color: rgba(255,255,255,.8);
+      padding: 40px 24px 20px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-logo-img { height: 28px; filter: brightness(0) invert(1); margin-bottom: 20px; }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .5px; }
+    .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.7); text-decoration: none; margin-bottom: 8px; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.15);
+      padding-top: 16px;
+      font-size: 11px;
+      color: rgba(255,255,255,.45);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- PHISHING BANNER -->
+<div class="phishing-bar">
+  ⚠️ ¡Cuidado con las estafas! Esta página es una presentación personal para el Evolve Talent &amp; Innovation Day — <a href="https://ksabitova.dev" target="_blank">Más información.</a>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo-link" href="#">
+      <img src="https://www.michaelpage.es/themes/custom/mp_theme/logo.png" alt="Michael Page"/>
+    </a>
+    <div class="header-right">
+      <div class="role-tabs">
+        <a class="role-tab active" href="#">Soy un candidato</a>
+        <a class="role-tab inactive" href="#">Soy una Empresa</a>
+      </div>
+      <div class="header-icons">
+        <!-- accessibility -->
+        <button class="header-icon-btn" title="Accesibilidad">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><path d="M12 22V8M5 10l7-2 7 2M7 20l5-6 5 6"/></svg>
+        </button>
+        <!-- menu -->
+        <button class="header-icon-btn" title="Menú">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-card">
+    <div class="eyebrow">Talento disponible · Ciberseguridad &amp; IA</div>
+    <h1>Kristina Sabitova</h1>
+    <p class="subtitle">Estudiante de Ciberseguridad &amp; IA · Técnica en Desarrollo Web</p>
+    <p class="motto">«В деталях вся суть. Details make the difference.»</p>
+    <a class="btn-mp" href="mailto:kris.yvna@gmail.com">Contactar</a>
+    <a class="btn-mp outline" href="https://ksabitova.dev" target="_blank">Ver portfolio</a>
+  </div>
+</section>
+
+<!-- SEARCH BAR -->
+<div class="search-wrap">
+  <div class="search-inner">
+    <div class="search-form">
+      <div class="search-field">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input placeholder="Título" readonly value="Ciberseguridad &amp; IA · Desarrollo Web"/>
+      </div>
+      <div class="search-field" style="max-width:220px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input placeholder="CCAA, Provincia" readonly value="Madrid"/>
+      </div>
+      <button class="search-btn-mp">Buscar</button>
+    </div>
+    <div class="search-filters">
+      <button class="filter-btn">Buscar por sector <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <button class="filter-btn">Buscar por ubicación <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <button class="filter-btn">Buscar por posición <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ¿CÓMO PODEMOS AYUDARTE? -->
+<section class="help-section">
+  <div class="help-inner">
+    <h2>¿Cómo podemos ayudarte?</h2>
+    <div class="help-btns">
+      <a class="help-btn" href="mailto:kris.yvna@gmail.com">Hablar con Kristina</a>
+      <a class="help-btn" href="https://ksabitova.dev" target="_blank">Ver portfolio completo</a>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN GRID -->
+<div class="main-grid">
+
+  <!-- LEFT COL -->
+  <div>
+
+    <!-- SOBRE MÍ -->
+    <div style="margin-bottom:36px">
+      <div class="sec-header">
+        <h2 class="sec-title">Sobre la candidata</h2>
+        <div class="green-badge"><div class="green-dot"></div> Disponible</div>
+      </div>
+      <div class="profile-card">
+        <p style="font-size:14px;line-height:1.75;color:var(--mp-text)">
+          Mi carrera comenzó en imagen diagnóstica y medicina nuclear, donde aprendí a <strong>encontrar lo que otros no ven</strong>: tumores, anomalías, patrones ocultos. Ese instinto analítico es ahora mi principal herramienta en ciberseguridad ofensiva.
+          <br/><br/>
+          Actualmente curso el <strong>Máster en Ciberseguridad &amp; IA (Red Team)</strong> en Evolve Academy y el Grado Superior en Desarrollo Web en DIGITECH FP. Tengo dos plataformas de seguridad propias en producción, ambas con rating <strong>A+ en securityheaders.com</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- EXPERIENCIA -->
+    <div style="margin-bottom:36px">
+      <div class="sec-header">
+        <h2 class="sec-title">Experiencia Profesional</h2>
+        <a class="sec-link" href="#">Ver todo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+      </div>
+
+      <div class="profile-card">
+        <div class="card-tag">Experiencia previa</div>
+        <div class="card-title">Planificación Quirúrgica Oncológica 3D</div>
+        <div class="card-company">Cella Medical Solutions</div>
+        <div class="card-meta">
+          <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Madrid</span>
+          <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Jornada completa</span>
+        </div>
+        <div class="card-body">Creación de modelos 3D para planificación de cirugías oncológicas. Análisis e interpretación de imágenes TAC, PET y resonancia magnética. Trabajo en entornos de alta precisión donde el detalle es crítico — exactamente la mentalidad que aplico ahora al análisis de vulnerabilidades y threat hunting.</div>
+        <div class="card-footer">
+          <a class="btn-apply" href="mailto:kris.yvna@gmail.com">Contactar</a>
+          <button class="btn-save">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Guardar
+          </button>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="card-tag">Experiencia previa</div>
+        <div class="card-title">Técnica en Imagen Diagnóstica &amp; Medicina Nuclear</div>
+        <div class="card-company">Sector Sanitario</div>
+        <div class="card-meta">
+          <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> España</span>
+          <span>Jornada completa</span>
+        </div>
+        <div class="card-body">Operación de equipos TAC, radiología y medicina nuclear. Interpretación de imágenes diagnósticas para identificar anomalías. Base de mi metodología actual: observación sistemática, atención al detalle, tolerancia cero al error.</div>
+        <div class="card-footer">
+          <a class="btn-apply" href="mailto:kris.yvna@gmail.com">Contactar</a>
+          <button class="btn-save">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROYECTOS -->
+    <div style="margin-bottom:36px">
+      <div class="sec-header">
+        <h2 class="sec-title">Proyectos en Producción</h2>
+        <a class="sec-link" href="https://ksabitova.dev" target="_blank">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+      </div>
+      <div class="proj-grid">
+        <a class="proj-card" href="https://spectra.ksabitova.dev" target="_blank">
+          <div class="proj-name">SPECTRA</div>
+          <div class="proj-desc">Plataforma de auditoría de pipelines LLM. Detecta inyecciones de prompt indirectas en arquitecturas de agentes IA. FastAPI + Claude Haiku, token auth, rate limiting. Agente live en Railway.</div>
+          <div class="proj-url">spectra.ksabitova.dev →</div>
+        </a>
+        <a class="proj-card" href="https://domini.ksabitova.dev" target="_blank">
+          <div class="proj-name">DOMINI + SENTINEL</div>
+          <div class="proj-desc">Suite de reconocimiento pasivo de dominios y OSINT. Integración masscan, análisis DNS, módulo cloud. A+ en securityheaders.com. Desplegada en producción.</div>
+          <div class="proj-url">domini.ksabitova.dev →</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- FORMACIÓN -->
+    <div>
+      <div class="sec-header">
+        <h2 class="sec-title">Formación</h2>
+      </div>
+
+      <div class="profile-card">
+        <div class="card-tag">En curso</div>
+        <div class="card-title">Máster en Ciberseguridad &amp; IA — Red Team</div>
+        <div class="card-company">Evolve Academy · Madrid</div>
+        <div class="card-meta"><span>2024 – 2026</span></div>
+        <div class="card-body">Especialización en seguridad ofensiva, análisis de vulnerabilidades, pentesting avanzado e IA aplicada a ciberseguridad. Seleccionada entre 25 candidatos para el Talent &amp; Innovation Day 2026.</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="card-tag">En curso</div>
+        <div class="card-title">Grado Superior en Desarrollo de Aplicaciones Web (DAW)</div>
+        <div class="card-company">DIGITECH FP · España</div>
+        <div class="card-meta"><span>2024 – 2026</span></div>
+        <div class="card-body">Desarrollo web full-stack, MongoDB/NoSQL, JUnit 5, SEO. Aprobados todos los módulos del primer año con estrategia de examen penalty-aware.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-head">Contacto directo</div>
+      <div class="sidebar-box-body">
+        <div class="contact-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:kris.yvna@gmail.com">kris.yvna@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <a href="https://ksabitova.dev" target="_blank">ksabitova.dev</a>
+        </div>
+        <div class="contact-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <a href="https://linkedin.com/in/ksabitova" target="_blank">linkedin.com/in/ksabitova</a>
+        </div>
+        <div class="contact-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <a href="https://github.com/KristinaSabitova" target="_blank">KristinaSabitova</a>
+        </div>
+        <div class="contact-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Madrid, España</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-head light">Habilidades técnicas</div>
+      <div class="sidebar-box-body">
+        <div class="skill-item">
+          <div class="skill-label">Red Team / Pentesting <span class="skill-pct">Avanzado</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:83%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">Python / FastAPI <span class="skill-pct">Avanzado</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:86%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">LLM / AI Security <span class="skill-pct">Avanzado</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">OSINT / Recon <span class="skill-pct">Avanzado</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">Kali Linux / Bash <span class="skill-pct">Avanzado</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label">Docker / Nginx <span class="skill-pct">Intermedio</span></div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:72%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-head light">Idiomas</div>
+      <div class="sidebar-box-body">
+        <div class="lang-row">
+          <span>Español</span>
+          <div class="lang-dots">
+            <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+          </div>
+        </div>
+        <div class="lang-row">
+          <span>Ruso</span>
+          <div class="lang-dots">
+            <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+          </div>
+        </div>
+        <div class="lang-row">
+          <span>Inglés (B1)</span>
+          <div class="lang-dots">
+            <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-head light">Logros &amp; Certificaciones</div>
+      <div class="sidebar-box-body">
+        <div class="logro-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          A+ securityheaders.com — 2 proyectos en producción
+        </div>
+        <div class="logro-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          HackTheBox — Responder, CTF Rickdiculously Easy (7 flags)
+        </div>
+        <div class="logro-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Seleccionada entre 25 para Evolve Talent &amp; Innovation Day
+        </div>
+        <div class="logro-row">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          SPECTRA-AGENT desplegado en Railway (FastAPI + LLM)
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- TE INTERESA -->
+<section class="interesa-section">
+  <div class="interesa-inner">
+    <div class="sec-header">
+      <h2 class="sec-title">Te interesa</h2>
+      <a class="sec-link" href="https://ksabitova.dev" target="_blank">Ver más <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="interesa-grid">
+      <div class="interesa-card">
+        <div class="interesa-card-img" style="background-image:url('https://www.michaelpage.es/sites/michaelpage.es/files/2024-09/main%20nav%20FRMP1.png');background-color:#e8f0fb"></div>
+        <div class="interesa-card-body">
+          <div class="eyebrow">Red Team · Pentesting</div>
+          <h4>Ciberseguridad ofensiva aplicada a entornos empresariales</h4>
+          <a class="link" href="https://spectra.ksabitova.dev" target="_blank">Ver proyecto SPECTRA →</a>
+        </div>
+      </div>
+      <div class="interesa-card">
+        <div class="interesa-card-img" style="background-image:url('https://www.michaelpage.es/sites/michaelpage.es/files/styles/webp/public/2024-06/CECS-102_MP_Website_Tech_1600x430.jpg.webp');background-color:#c0d4ee"></div>
+        <div class="interesa-card-body">
+          <div class="eyebrow">AI Security · LLM</div>
+          <h4>Auditoría de pipelines LLM y detección de prompt injection</h4>
+          <a class="link" href="https://spectra.ksabitova.dev" target="_blank">Ver SPECTRA →</a>
+        </div>
+      </div>
+      <div class="interesa-card">
+        <div class="interesa-card-img" style="background-image:url('https://www.michaelpage.es/sites/michaelpage.es/files/2024-09/main%20nav%20FRMP3.png');background-color:#dce8f5"></div>
+        <div class="interesa-card-body">
+          <div class="eyebrow">OSINT · Reconocimiento</div>
+          <h4>Reconocimiento pasivo de dominios e inteligencia de infraestructura</h4>
+          <a class="link" href="https://domini.ksabitova.dev" target="_blank">Ver DOMINI →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <img src="https://www.michaelpage.es/themes/custom/mp_theme/logo.png" alt="Michael Page" class="footer-logo-img"/>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Candidata</h4>
+        <a href="mailto:kris.yvna@gmail.com">Contactar</a>
+        <a href="https://ksabitova.dev" target="_blank">Portfolio</a>
+        <a href="https://linkedin.com/in/ksabitova" target="_blank">LinkedIn</a>
+        <a href="https://github.com/KristinaSabitova" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4>Proyectos</h4>
+        <a href="https://spectra.ksabitova.dev" target="_blank">SPECTRA</a>
+        <a href="https://domini.ksabitova.dev" target="_blank">DOMINI + SENTINEL</a>
+      </div>
+      <div class="footer-col">
+        <h4>Especialización</h4>
+        <a href="#">Red Team</a>
+        <a href="#">AI Security</a>
+        <a href="#">OSINT</a>
+        <a href="#">Pentesting</a>
+      </div>
+      <div class="footer-col">
+        <h4>Evento</h4>
+        <a href="#">Evolve Talent Day 2026</a>
+        <a href="#">25 de junio · Madrid</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Página diseñada con la identidad visual de Michael Page para el Evolve Talent &amp; Innovation Day · 25 de junio de 2026 · Uso exclusivamente personal y de presentación profesional · kris.yvna@gmail.com
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
