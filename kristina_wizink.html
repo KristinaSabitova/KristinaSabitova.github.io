@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kristina Sabitova | WiZink</title>
+  <style>
+    @font-face {
+      font-family: 'Geomanist-light';
+      src: url('https://www.wizink.es/public/etc.clientlibs/wizink-catalog/clientlibs/clientlib-base/resources/fonts/geomanist/Geomanist-Light-WZ.otf') format('opentype');
+      font-weight: 300; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Geomanist-book';
+      src: url('https://www.wizink.es/public/etc.clientlibs/wizink-catalog/clientlibs/clientlib-base/resources/fonts/geomanist/Geomanist-Book-WZ.otf') format('opentype');
+      font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Geomanist-bold';
+      src: url('https://www.wizink.es/public/etc.clientlibs/wizink-catalog/clientlibs/clientlib-base/resources/fonts/geomanist/Geomanist-Bold-WZ.otf') format('truetype');
+      font-weight: 700; font-style: normal;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --mint:    #b5eddb;
+      --navy:    #152a69;
+      --teal:    #00c6c5;
+      --beige:   #f5e5c2;
+      --lavender:#d6d9ed;
+      --white:   #ffffff;
+      --text:    #212529;
+      --mid:     #555f6e;
+      --border:  #e0e0e0;
+    }
+
+    body {
+      font-family: 'Geomanist-book', 'Open Sans', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV TOP — banda menta con links a la derecha ── */
+    .nav-top {
+      background: var(--mint);
+      height: 34px; display: flex; align-items: center;
+    }
+    .nav-top-inner {
+      max-width: 1300px; margin: 0 auto; padding: 0 32px;
+      width: 100%; display: flex; align-items: center; justify-content: flex-end;
+    }
+    .nav-top-links { display: flex; align-items: center; gap: 28px; }
+    .nav-top-links a { font-family: 'Geomanist-book', sans-serif; font-size: 12px; color: var(--navy); text-decoration: none; }
+    .nav-top-links a:hover { text-decoration: underline; }
+    .btn-registrate { font-family: 'Geomanist-bold', sans-serif; font-size: 12px; color: var(--navy); text-decoration: none; margin-left: 20px; }
+    .btn-acceso-nav {
+      background: var(--navy); color: white;
+      font-family: 'Geomanist-bold', sans-serif; font-size: 13px;
+      padding: 0 24px; height: 34px; border: none; cursor: pointer;
+      text-decoration: none; display: flex; align-items: center; margin-left: 0;
+    }
+
+    /* ── HEADER BLANCO — logo + tagline + nav productos ── */
+    .main-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 200;
+    }
+    .main-header-inner {
+      max-width: 1300px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .logo-group { display: flex; align-items: center; gap: 16px; }
+    .logo-group img { height: 40px; width: auto; display: block; }
+    .logo-tagline {
+      font-family: 'Geomanist-bold', sans-serif;
+      font-size: 12px; color: var(--navy); line-height: 1.4;
+    }
+    .products-nav { display: flex; align-items: center; gap: 28px; }
+    .products-nav a {
+      font-family: 'Geomanist-book', sans-serif;
+      font-size: 13px; color: var(--navy); text-decoration: none;
+      display: flex; align-items: center; gap: 4px; white-space: nowrap;
+    }
+    .products-nav a:hover { color: var(--teal); }
+    .products-nav a svg { width: 12px; height: 12px; }
+
+    /* ── PAGE CONTENT wrapper ── */
+    .page-content { max-width: 1300px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── CAJA INDICADOR ── */
+    .risk-box {
+      border: 1px solid #ccc;
+      display: grid; grid-template-columns: 240px 1fr;
+      margin: 28px 0 0;
+    }
+    .risk-header {
+      grid-column: 1 / -1; border-bottom: 1px solid #ccc;
+      text-align: center; padding: 6px 12px;
+      font-family: 'Geomanist-bold', sans-serif;
+      font-size: 11px; letter-spacing: .5px; text-transform: uppercase; color: var(--text);
+    }
+    .risk-left { padding: 16px 20px; border-right: 1px solid #ccc; }
+    .risk-num { font-family: 'Geomanist-light', sans-serif; font-size: 36px; color: var(--text); line-height: 1; margin-bottom: 8px; }
+    .risk-left p { font-family: 'Geomanist-book', sans-serif; font-size: 11px; color: var(--mid); line-height: 1.5; }
+    .risk-right { padding: 16px 20px; }
+    .risk-right h4 { font-family: 'Geomanist-bold', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+    .risk-right p  { font-family: 'Geomanist-book', sans-serif; font-size: 11px; color: var(--mid); line-height: 1.5; margin-bottom: 10px; }
+    .risk-right p:last-child { margin-bottom: 0; }
+
+    /* ── HERO — texto izq, imagen der ── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 430px;
+      gap: 40px; align-items: center; padding: 44px 0 12px;
+    }
+    .hero-left h1 {
+      font-family: 'Geomanist-bold', sans-serif;
+      font-size: clamp(28px, 4vw, 46px);
+      color: var(--navy); line-height: 1.1; margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-family: 'Geomanist-book', sans-serif;
+      font-size: 14px; color: var(--mid); margin-bottom: 6px;
+    }
+    .hero-motto {
+      font-family: 'Geomanist-light', sans-serif;
+      font-size: 13px; color: var(--mid); font-style: italic; margin-bottom: 18px;
+    }
+    .hero-bullets { list-style: none; margin-bottom: 28px; }
+    .hero-bullets li {
+      font-family: 'Geomanist-book', sans-serif;
+      font-size: 14px; color: var(--mid); padding: 3px 0;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .hero-bullets li::before { content: '•'; color: var(--teal); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .btn-pill {
+      display: inline-block; background: var(--navy); color: white;
+      font-family: 'Geomanist-bold', sans-serif; font-size: 13px;
+      letter-spacing: .8px; text-transform: uppercase;
+      padding: 13px 30px; border-radius: 30px; border: none;
+      cursor: pointer; text-decoration: none; transition: background .2s;
+    }
+    .btn-pill:hover { background: #1e3a8a; }
+    .btn-pill.ghost {
+      background: transparent; color: var(--navy);
+      border: 2px solid var(--navy); margin-left: 10px;
+    }
+    .btn-pill.ghost:hover { background: rgba(21,42,105,.07); }
+    .hero-right {
+      background: #ddeeff; border-radius: 12px; overflow: hidden;
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 280px; padding: 0; position: relative;
+    }
+    .hero-person {
+      width: 180px; height: 260px;
+      background: linear-gradient(180deg, rgba(21,42,105,.08), rgba(21,42,105,.2));
+      border-radius: 50% 50% 0 0; margin-left: 28px; align-self: flex-end;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Geomanist-bold', sans-serif;
+      font-size: 56px; color: var(--navy);
+    }
+    .hero-circle {
+      width: 180px; height: 180px; border-radius: 50%; background: white;
+      display: flex; align-items: center; justify-content: center;
+      position: absolute; right: 28px; top: 50%; transform: translateY(-50%);
+      flex-direction: column; text-align: center; padding: 16px;
+    }
+    .hero-circle-label { font-family: 'Geomanist-book', sans-serif; font-size: 11px; color: var(--navy); line-height: 1.3; margin-bottom: 4px; }
+    .hero-circle-big   { font-family: 'Geomanist-bold', sans-serif; font-size: 40px; color: var(--navy); line-height: 1; }
+    .hero-circle-big sup { font-size: 20px; }
+    .hero-circle-sub   { font-family: 'Geomanist-book', sans-serif; font-size: 11px; color: var(--navy); border-top: 2px solid var(--teal); padding-top: 4px; margin-top: 4px; }
+
+    /* ── SLIDER DOTS ── */
+    .slider-dots {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 20px 0 0;
+    }
+    .sarrow { background: none; border: none; font-size: 22px; color: var(--mid); cursor: pointer; opacity: .6; }
+    .sdot { width: 10px; height: 10px; border-radius: 50%; background: var(--mid); cursor: pointer; opacity: .35; }
+    .sdot.on { opacity: 1; }
+    .sreset { background: none; border: none; font-size: 20px; color: var(--mid); cursor: pointer; opacity: .5; }
+
+    /* ── TAGLINE ── */
+    .tagline { text-align: center; padding: 52px 32px 40px; max-width: 1300px; margin: 0 auto; }
+    .tagline h2 {
+      font-family: 'Geomanist-bold', sans-serif;
+      font-size: clamp(20px, 3vw, 32px); color: var(--navy); margin-bottom: 14px;
+    }
+    .tagline p {
+      font-family: 'Geomanist-book', sans-serif;
+      max-width: 900px; margin: 0 auto; font-size: 15px; color: var(--mid); line-height: 1.7;
+    }
+
+    /* ── MOSAIC 2x2 ── */
+    .mosaic { padding: 0 32px 52px; max-width: 1300px; margin: 0 auto; }
+    .mosaic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .mosaic-card {
+      border-radius: 16px; padding: 32px;
+      display: flex; flex-direction: column; gap: 12px;
+      min-height: 210px; position: relative; overflow: hidden;
+    }
+    .mosaic-card.teal     { background: var(--teal); }
+    .mosaic-card.beige    { background: var(--beige); }
+    .mosaic-card.lavender { background: var(--lavender); }
+    .mosaic-card.mint     { background: var(--mint); }
+    .mosaic-card h3 {
+      font-family: 'Geomanist-bold', sans-serif;
+      font-size: 18px; color: var(--navy); line-height: 1.25;
+    }
+    .mosaic-card.teal h3 { color: white; }
+    .mosaic-card p {
+      font-family: 'Geomanist-book', sans-serif;
+      font-size: 13px; color: var(--navy); opacity: .8; line-height: 1.6; flex: 1;
+    }
+    .mosaic-card.teal p { color: rgba(255,255,255,.9); opacity: 1; }
+    .mosaic-card .btn-pill { align-self: flex-start; font-size: 12px; padding: 10px 22px; }
+    .mosaic-card.teal .btn-pill { background: var(--navy); }
+    .card-img { position: absolute; right: 20px; bottom: 16px; height: 85px; opacity: .7; object-fit: contain; }
+
+    /* ── SEGURIDAD ── */
+    .security { padding: 56px 32px; max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .security-img img { max-width: 360px; width: 100%; display: block; }
+    .security-text h2 {
+      font-family: 'Geomanist-bold', sans-serif;
+      font-size: clamp(20px,3vw,32px); color: var(--navy); margin-bottom: 20px;
+    }
+    .security-text h2 span { color: var(--teal); }
+    .sec-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
+    .sec-list li { display: flex; align-items: flex-start; gap: 14px; font-family: 'Geomanist-book', sans-serif; font-size: 14px; color: var(--mid); line-height: 1.5; }
+    .sec-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--mint); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .sec-icon img { width: 20px; height: 20px; object-fit: contain; }
+
+    /* ── PERFIL ── */
+    .profile-section { background: #f8f9fa; padding: 56px 0; }
+    .profile-inner { max-width: 1300px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+    .profile-inner h2 { font-family: 'Geomanist-bold', sans-serif; font-size: clamp(20px,3vw,32px); color: var(--navy); margin-bottom: 16px; }
+    .profile-inner > div > p { font-family: 'Geomanist-book', sans-serif; font-size: 14px; color: var(--mid); line-height: 1.75; margin-bottom: 14px; }
+    .profile-inner strong { font-family: 'Geomanist-bold', sans-serif; color: var(--navy); }
+    .tl { border-left: 2px solid var(--mint); padding: 0 0 24px 22px; position: relative; }
+    .tl::before { content:''; width:10px; height:10px; border-radius:50%; background:var(--teal); position:absolute; left:-6px; top:4px; }
+    .tl:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .tl-period { font-family: 'Geomanist-bold', sans-serif; font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:var(--teal); margin-bottom:3px; }
+    .tl-title  { font-family: 'Geomanist-bold', sans-serif; font-size:15px; color:var(--navy); margin-bottom:2px; }
+    .tl-org    { font-family: 'Geomanist-book', sans-serif; font-size:12px; color:var(--mid); margin-bottom:6px; }
+    .tl-desc   { font-family: 'Geomanist-book', sans-serif; font-size:13px; color:var(--mid); line-height:1.6; }
+
+    .side-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 20px rgba(21,42,105,.08); }
+    .side-head { background: var(--navy); color: white; padding: 22px; }
+    .side-avatar { width:48px; height:48px; border-radius:50%; background:var(--teal); display:flex; align-items:center; justify-content:center; font-family:'Geomanist-bold',sans-serif; font-size:16px; margin-bottom:10px; }
+    .side-head h3 { font-family:'Geomanist-bold',sans-serif; font-size:16px; margin-bottom:2px; }
+    .side-head p  { font-family:'Geomanist-book',sans-serif; font-size:12px; opacity:.65; }
+    .side-body { padding: 18px; }
+    .side-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #f2f2f2; font-size:13px; }
+    .side-row:last-child { border-bottom:none; }
+    .side-row .l { font-family:'Geomanist-book',sans-serif; color:var(--mid); }
+    .side-row .r { font-family:'Geomanist-bold',sans-serif; color:var(--navy); }
+    .side-row .r.ok { color:#0d9362; }
+    .side-links { margin-top:16px; display:flex; flex-direction:column; gap:8px; }
+    .slink { display:flex; align-items:center; gap:10px; font-family:'Geomanist-bold',sans-serif; font-size:13px; color:var(--navy); text-decoration:none; background:var(--mint); border-radius:10px; padding:10px 14px; transition:background .2s; }
+    .slink:hover { background:#8ed9c3; }
+    .slink svg { color:var(--teal); flex-shrink:0; }
+
+    /* ── PROYECTOS ── */
+    .projects { background: var(--navy); padding: 56px 32px; }
+    .projects-inner { max-width: 1300px; margin: 0 auto; }
+    .projects h2 { font-family:'Geomanist-bold',sans-serif; font-size:clamp(20px,3vw,32px); color:white; margin-bottom:8px; }
+    .projects .sub { font-family:'Geomanist-book',sans-serif; font-size:14px; color:rgba(255,255,255,.6); margin-bottom:32px; }
+    .proj-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .proj-card { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:28px; text-decoration:none; color:inherit; display:block; transition:all .2s; }
+    .proj-card:hover { background:rgba(255,255,255,.12); border-color:var(--teal); transform:translateY(-2px); }
+    .proj-pill { display:inline-block; background:rgba(0,198,197,.2); border:1px solid rgba(0,198,197,.5); color:var(--teal); border-radius:20px; font-family:'Geomanist-bold',sans-serif; font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:3px 10px; margin-bottom:14px; }
+    .proj-card h3 { font-family:'Geomanist-bold',sans-serif; font-size:20px; color:white; margin-bottom:8px; }
+    .proj-card p  { font-family:'Geomanist-book',sans-serif; font-size:13px; color:rgba(255,255,255,.65); line-height:1.65; margin-bottom:14px; }
+    .proj-url { font-family:'Geomanist-bold',sans-serif; font-size:12px; color:var(--teal); }
+
+    /* ── FOOTER ── */
+    footer { background:var(--navy); border-top:1px solid rgba(255,255,255,.1); padding:40px 32px 24px; }
+    .footer-inner { max-width:1300px; margin:0 auto; }
+    .footer-logo { display:block; margin-bottom:28px; }
+    .footer-logo img { height:28px; filter:brightness(0) invert(1); }
+    .footer-cols { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-bottom:28px; }
+    .footer-col h4 { font-family:'Geomanist-bold',sans-serif; font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:white; margin-bottom:14px; }
+    .footer-col a  { font-family:'Geomanist-book',sans-serif; display:block; font-size:13px; color:rgba(255,255,255,.55); text-decoration:none; margin-bottom:8px; }
+    .footer-col a:hover { color:var(--teal); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:16px; font-family:'Geomanist-book',sans-serif; font-size:11px; color:rgba(255,255,255,.3); text-align:center; }
+  </style>
+</head>
+<body>
+
+<!-- NAV TOP -->
+<div class="nav-top">
+  <div class="nav-top-inner">
+    <div class="nav-top-links">
+      <a href="#">Sobre nosotros</a>
+      <a href="#">Ayuda</a>
+      <a href="#">Contactos</a>
+      <a href="#">Finanzas Descomplicadas</a>
+    </div>
+    <a class="btn-registrate" href="#">Regístrate</a>
+    <a class="btn-acceso-nav" href="mailto:kris.yvna@gmail.com">Acceso Cliente</a>
+  </div>
+</div>
+
+<!-- HEADER BLANCO -->
+<header class="main-header">
+  <div class="main-header-inner">
+    <div class="logo-group">
+      <img src="data:image/png;base64,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" alt="WiZink"/>
+
+    </div>
+    <nav class="products-nav">
+      <a href="#">Ciberseguridad &amp; IA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#">Proyectos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#">Formación <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#">Trayectoria</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<!-- CONTENIDO -->
+<div class="page-content">
+
+  <!-- INDICADOR -->
+  <div class="risk-box">
+    <div class="risk-header">KRISTINA SABITOVA | PERFIL PROFESIONAL</div>
+    <div class="risk-left">
+      <div class="risk-num">KS</div>
+      <p>Estudiante de Ciberseguridad &amp; IA con enfoque Red Team y Técnica en Desarrollo Web. Dos proyectos en producción.</p>
+    </div>
+    <div class="risk-right">
+      <h4>Formación activa</h4>
+      <p>Máster en Ciberseguridad &amp; IA en Evolve Academy y Grado Superior DAW en DIGITECH FP. Experiencia previa en imagen diagnóstica y planificación quirúrgica oncológica 3D.</p>
+      <h4>Disponibilidad</h4>
+      <p>Alicante, España · kris.yvna@gmail.com · ksabitova.dev</p>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <h1>Kristina Sabitova</h1>
+      <p class="hero-sub">Estudiante de Ciberseguridad &amp; IA · Técnica en Desarrollo Web</p>
+      <p class="hero-motto">«В деталях вся суть. Details make the difference.»</p>
+      <ul class="hero-bullets">
+        <li>Máster en Ciberseguridad &amp; IA con enfoque Red Team en Evolve Academy</li>
+        <li>Grado Superior en Desarrollo de Aplicaciones Web en DIGITECH FP</li>
+        <li>Dos proyectos en producción con rating A+ en securityheaders.com</li>
+      </ul>
+      <a class="btn-pill" href="mailto:kris.yvna@gmail.com">Contactar</a>
+      <a class="btn-pill ghost" href="https://ksabitova.dev" target="_blank">Ver portfolio</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-person">KS</div>
+      <div class="hero-circle">
+        <div class="hero-circle-label">Security headers<br/>rating</div>
+        <div class="hero-circle-big">A<sup>+</sup></div>
+        <div class="hero-circle-sub">Ambos proyectos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDER DOTS -->
+  <div class="slider-dots">
+    <button class="sarrow">&#8249;</button>
+    <div class="sdot on"></div>
+    <div class="sdot"></div>
+    <button class="sarrow">&#8250;</button>
+    <button class="sreset">&#8635;</button>
+  </div>
+
+</div>
+
+<!-- TAGLINE -->
+<div class="tagline">
+  <h2>Un perfil 100% práctico que aporta más</h2>
+  <p>Lo que estudio lo llevo a producción. Porque aprender de verdad significa construir cosas reales, con seguridad real y código real.</p>
+</div>
+
+<!-- MOSAIC -->
+<div class="mosaic">
+  <div class="mosaic-grid">
+    <div class="mosaic-card teal">
+      <h3>Ciberseguridad &amp; IA<br/>con enfoque Red Team</h3>
+      <p>Máster en Evolve Academy. Pentesting, análisis ofensivo, seguridad de pipelines LLM y HackTheBox.</p>
+      <a class="btn-pill" href="https://spectra.ksabitova.dev" target="_blank">Ver SPECTRA</a>
+      <img class="card-img" src="https://www.wizink.es/public/content/dam/wizink-web-es/images/secure-navigation-home.png" alt=""/>
+    </div>
+    <div class="mosaic-card beige">
+      <h3>Desarrollo Web<br/>Full Stack</h3>
+      <p>Grado Superior DAW en DIGITECH FP. Python, HTML, CSS, JS, MongoDB, JUnit 5.</p>
+      <a class="btn-pill" href="https://ksabitova.dev" target="_blank">Ver portfolio</a>
+      <img class="card-img" src="https://www.wizink.es/public/content/dam/wizink-web-es/images/secure-movements-home.png" alt=""/>
+    </div>
+    <div class="mosaic-card lavender">
+      <h3>Imagen diagnóstica<br/>&amp; oncología 3D</h3>
+      <p>Origen profesional en imagen médica y planificación quirúrgica oncológica 3D en Cella Medical Solutions. Un contexto donde el margen de error es cero.</p>
+      <a class="btn-pill" href="mailto:kris.yvna@gmail.com">Contactar</a>
+    </div>
+    <div class="mosaic-card mint">
+      <h3>OSINT &amp; reconocimiento<br/>de infraestructuras</h3>
+      <p>DOMINI + SENTINEL: reconocimiento pasivo de dominios, masscan, DNS, módulo cloud. Rating A+ en producción.</p>
+      <a class="btn-pill" href="https://domini.ksabitova.dev" target="_blank">Ver DOMINI</a>
+      <img class="card-img" src="https://www.wizink.es/content/dam/wizink-web-es/images/home-candado-seguridad.png" alt=""/>
+    </div>
+  </div>
+</div>
+
+<!-- SEGURIDAD -->
+<div class="security">
+  <div class="security-img">
+    <img src="https://www.wizink.es/content/dam/wizink-web-es/images/home-candado-seguridad.png" alt="Seguridad"/>
+  </div>
+  <div class="security-text">
+    <h2>La seguridad es <span>mi prioridad</span></h2>
+    <ul class="sec-list">
+      <li>
+        <div class="sec-icon"><img src="https://www.wizink.es/public/content/dam/wizink-web-es/images/secure-navigation-home.png" alt=""/></div>
+        <div>Rating A+ en securityheaders.com en los dos proyectos en producción</div>
+      </li>
+      <li>
+        <div class="sec-icon"><img src="https://www.wizink.es/public/content/dam/wizink-web-es/images/secure-movements-home.png" alt=""/></div>
+        <div>SPF, DMARC, nginx hardening, autenticación por token y rate limiting implementados</div>
+      </li>
+      <li>
+        <div class="sec-icon" style="background:var(--beige)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>Detección de inyecciones de prompt en agentes LLM (SPECTRA) y reconocimiento pasivo de dominios (DOMINI)</div>
+      </li>
+    </ul>
+    <a class="btn-pill" href="https://spectra.ksabitova.dev" target="_blank">Más info</a>
+  </div>
+</div>
+
+<!-- PERFIL -->
+<section class="profile-section">
+  <div class="profile-inner">
+    <div>
+      <h2>Trayectoria</h2>
+      <p>Mi carrera empezó en el sector sanitario — imagen diagnóstica, medicina nuclear y planificación quirúrgica oncológica 3D en Cella Medical Solutions. Un entorno donde <strong>el margen de error es cero</strong>.</p>
+      <p>Esa manera de trabajar es la que aplico ahora en ciberseguridad y desarrollo web.</p>
+      <div style="margin-top:28px">
+        <div class="tl">
+          <div class="tl-period">2024 – Presente</div>
+          <div class="tl-title">Máster en Ciberseguridad &amp; IA — Red Team</div>
+          <div class="tl-org">Evolve Academy · Madrid</div>
+          <div class="tl-desc">Pentesting, análisis ofensivo, seguridad de sistemas LLM, HackTheBox.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-period">2024 – Presente</div>
+          <div class="tl-title">Grado Superior — Desarrollo de Aplicaciones Web</div>
+          <div class="tl-org">DIGITECH FP</div>
+          <div class="tl-desc">Full-stack, MongoDB, JUnit 5, SEO. Primer año aprobado completo.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-period">Experiencia previa</div>
+          <div class="tl-title">Planificación Quirúrgica Oncológica 3D</div>
+          <div class="tl-org">Cella Medical Solutions · Madrid</div>
+          <div class="tl-desc">Modelos 3D para cirugías oncológicas. Imagen diagnóstica: TAC, PET, resonancias.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-period">Experiencia previa</div>
+          <div class="tl-title">Técnica en Imagen Diagnóstica &amp; Medicina Nuclear</div>
+          <div class="tl-org">Sector Sanitario · España</div>
+          <div class="tl-desc">Operación de equipos de imagen médica. Base metodológica que aplico ahora en análisis de seguridad.</div>
+        </div>
+      </div>
+    </div>
+    <aside>
+      <div class="side-card">
+        <div class="side-head">
+          <div class="side-avatar">KS</div>
+          <h3>Kristina Sabitova</h3>
+          <p>Ciberseguridad &amp; IA · Desarrollo Web</p>
+        </div>
+        <div class="side-body">
+          <div class="side-row"><span class="l">Ubicación</span><span class="r">Alicante, España</span></div>
+          <div class="side-row"><span class="l">Disponibilidad</span><span class="r ok">✓ Inmediata</span></div>
+          <div class="side-row"><span class="l">Proyectos live</span><span class="r">2 en producción</span></div>
+          <div class="side-row"><span class="l">Security rating</span><span class="r">A+ ambos</span></div>
+          <div class="side-row"><span class="l">Idiomas</span><span class="r">ES · RU · EN</span></div>
+          <div class="side-row"><span class="l">Pentesting</span><span class="r">HackTheBox</span></div>
+          <div class="side-links">
+            <a class="slink" href="mailto:kris.yvna@gmail.com">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              kris.yvna@gmail.com
+            </a>
+            <a class="slink" href="https://ksabitova.dev" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              ksabitova.dev
+            </a>
+            <a class="slink" href="https://linkedin.com/in/ksabitova" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              linkedin.com/in/ksabitova
+            </a>
+            <a class="slink" href="https://github.com/KristinaSabitova" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              KristinaSabitova
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section class="projects">
+  <div class="projects-inner">
+    <h2>Proyectos en producción</h2>
+    <p class="sub">Desarrollados durante la formación. Desplegados, auditados y accesibles.</p>
+    <div class="proj-grid">
+      <a class="proj-card" href="https://spectra.ksabitova.dev" target="_blank">
+        <div class="proj-pill">LLM Security · AI</div>
+        <h3>SPECTRA</h3>
+        <p>Plataforma de auditoría de pipelines LLM que detecta inyecciones de prompt indirectas en arquitecturas de agentes IA. FastAPI + Claude Haiku, autenticación por token y rate limiting. Agente live en Railway.</p>
+        <div class="proj-url">spectra.ksabitova.dev →</div>
+      </a>
+      <a class="proj-card" href="https://domini.ksabitova.dev" target="_blank">
+        <div class="proj-pill">OSINT · Recon</div>
+        <h3>DOMINI + SENTINEL</h3>
+        <p>Suite de reconocimiento pasivo de dominios e inteligencia de fuentes abiertas. Integra masscan, análisis DNS y módulo cloud. SPF y DMARC configurados. Rating A+ en securityheaders.com.</p>
+        <div class="proj-url">domini.ksabitova.dev →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a class="footer-logo" href="#">
+      <img src="data:image/png;base64,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" alt="WiZink"/>
+    </a>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="mailto:kris.yvna@gmail.com">kris.yvna@gmail.com</a>
+        <a href="https://ksabitova.dev" target="_blank">ksabitova.dev</a>
+        <a href="https://linkedin.com/in/ksabitova" target="_blank">LinkedIn</a>
+        <a href="https://github.com/KristinaSabitova" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4>Proyectos</h4>
+        <a href="https://spectra.ksabitova.dev" target="_blank">SPECTRA</a>
+        <a href="https://domini.ksabitova.dev" target="_blank">DOMINI + SENTINEL</a>
+      </div>
+      <div class="footer-col">
+        <h4>Formación</h4>
+        <a href="#">Máster Ciberseguridad &amp; IA</a>
+        <a href="#">DAW · Desarrollo Web</a>
+      </div>
+      <div class="footer-col">
+        <h4>Evento</h4>
+        <a href="#">Evolve Talent Day 2026</a>
+        <a href="#">25 Junio · Madrid</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Página diseñada con la identidad visual de WiZink para el Evolve Talent &amp; Innovation Day · 25 de junio de 2026 · Uso exclusivamente personal · kris.yvna@gmail.com
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
